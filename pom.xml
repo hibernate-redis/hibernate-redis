@@ -10,30 +10,6 @@
     <packaging>pom</packaging>
     <url>https://github.com/hibernate-redis/hibernate-redis</url>
 
-    <modules>
-        <module>hibernate-redis</module>
-        <module>hibernate-examples</module>
-    </modules>
-
-    <licenses>
-        <license>
-            <name>The Apache Software License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-            <distribution>repo</distribution>
-        </license>
-    </licenses>
-
-    <issueManagement>
-        <system>github</system>
-        <url>http://github.com/hibernate-redis/hibernate-redis/issues</url>
-    </issueManagement>
-
-    <scm>
-        <connection>scm:git:git@github.com:hibernate-redis/hibernate-redis.git</connection>
-        <url>scm:git:git@github.com:hibernate-redis/hibernate-redis.git</url>
-        <developerConnection>scm:git:git@github.com:hibernate-redis/hibernate-redis.git</developerConnection>
-    </scm>
-
     <properties>
         <java.version>1.7</java.version>
         <jdk.version>1.7</jdk.version>
@@ -49,6 +25,11 @@
         <springframework.version>4.2.5.RELEASE</springframework.version>
         <querydsl.version>3.7.2</querydsl.version>
     </properties>
+
+    <modules>
+        <module>hibernate-redis</module>
+        <module>hibernate-examples</module>
+    </modules>
 
     <dependencyManagement>
         <dependencies>
@@ -222,6 +203,35 @@
         </dependencies>
     </dependencyManagement>
 
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+
+    <issueManagement>
+        <system>github</system>
+        <url>http://github.com/hibernate-redis/hibernate-redis/issues</url>
+    </issueManagement>
+
+    <scm>
+        <connection>scm:git:git@github.com:hibernate-redis/hibernate-redis.git</connection>
+        <url>scm:git:git@github.com:hibernate-redis/hibernate-redis.git</url>
+        <developerConnection>scm:git:git@github.com:hibernate-redis/hibernate-redis.git</developerConnection>
+    </scm>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
+
     <build>
         <plugins>
             <plugin>
@@ -248,23 +258,33 @@
                     </execution>
                 </executions>
             </plugin>
-            <!-- Skip Test jar -->
-            <!--
-                        <plugin>
-                            <groupId>org.apache.maven.plugins</groupId>
-                            <artifactId>maven-jar-plugin</artifactId>
-                            <version>2.4</version>
-                            <executions>
-                                <execution>
-                                    <goals>
-                                        <goal>test-jar</goal>
-                                    </goals>
-                                </execution>
-                            </executions>
-                        </plugin>
-            -->
-            <!-- For signing -->
-            <!--
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.9.1</version>
+                <configuration>
+                    <failOnError>false</failOnError>
+                    <additionalparam>-Xdoclint:none</additionalparam>
+                </configuration>
+                <executions>
+                    <execution>
+                        <configuration>
+                            <failOnError>false</failOnError>
+                            <additionalparam>-Xdoclint:none</additionalparam>
+                        </configuration>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>attach-javadocs-2</id>
+                        <goals>
+                            <goal>aggregate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-gpg-plugin</artifactId>
@@ -279,23 +299,7 @@
                     </execution>
                 </executions>
             </plugin>
-            -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-deploy-plugin</artifactId>
-                <inherited>false</inherited>
-            </plugin>
         </plugins>
     </build>
 
-    <distributionManagement>
-        <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
-        <repository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-        </repository>
-    </distributionManagement>
 </project>
