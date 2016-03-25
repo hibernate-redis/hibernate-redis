@@ -18,6 +18,8 @@ import org.springframework.transaction.PlatformTransactionManager;
 
 import javax.sql.DataSource;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Properties;
 
 /**
@@ -76,11 +78,13 @@ public class HibernateRedisConfiguration {
         config.setInitializationFailFast(true);
         config.setConnectionTestQuery("SELECT 1");
 
-        return new HikariDataSource(config);
-
-//        return new EmbeddedDatabaseBuilder()
-//                .setType(EmbeddedDatabaseType.H2)
-//                .build();
+        return new HikariDataSource(config) {
+            // multi-pool support was removed from Hikari
+            @Override
+            public Connection getConnection(String username, String password) throws SQLException {
+                return getConnection();
+            }
+        };
     }
 
     @Bean
