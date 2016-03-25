@@ -1,11 +1,11 @@
 hibernate-redis  [![Build Status](https://travis-ci.org/hibernate-redis/hibernate-redis.png)](https://travis-ci.org/hibernate-redis/hibernate-redis) [![Join the chat at https://gitter.im/hibernate-redis/hibernate-redis](https://badges.gitter.im/hibernate-redis/hibernate-redis.svg)](https://gitter.im/hibernate-redis/hibernate-redis?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 ===============
 
-[Hibernate][1] (4.2.x.Final, 4.3.x.Final) 2nd level cache using redis server.
+[Hibernate][1] (4.2.x.Final, 4.3.x.Final) 2nd level cache using Redis server.
 with [Jedis][2]  2.4.1 or higher
 
 Reduce cache size by [Fast-Serialization][fst] and [snappy-java][snappy]. Thanks!
-try serialization [benchmark][benchmark].
+See serialization [benchmark][benchmark].
 
 ### NOTE
 
@@ -17,7 +17,7 @@ if multiple entity cached in same region, can't figure out wanted entity.
 
 ### Maven Repository
 
-add dependency
+Add dependency
 
 ```xml
 <dependency>
@@ -29,7 +29,7 @@ add dependency
 
 ### Setup hibernate configuration
 
-Setup hibernate configuration.
+Setup hibernate configuration
 
 ```java
 // Secondary Cache
@@ -82,9 +82,9 @@ Sample for hibernate-redis.properties
  redis.expiryInSeconds.hibernate.account=1200
 ```
 
-### Setup hibernate entity to use cache
+### Setup Hibernate entity to use cache
 
-Add @org.hibernate.annotations.Cache annotation to Entity class like this
+Add @org.hibernate.annotations.Cache annotation to your Entity class
 
 ```java
 @Entity
