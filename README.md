@@ -1,6 +1,8 @@
 hibernate-redis  [![Build Status](https://travis-ci.org/hibernate-redis/hibernate-redis.png)](https://travis-ci.org/hibernate-redis/hibernate-redis)
 ===============
 
+[![Join the chat at https://gitter.im/hibernate-redis/hibernate-redis](https://badges.gitter.im/hibernate-redis/hibernate-redis.svg)](https://gitter.im/hibernate-redis/hibernate-redis?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 [Hibernate][1] (4.2.x.Final, 4.3.x.Final) 2nd level cache using redis server.
 with [Jedis][2]  2.4.1 or higher
 
