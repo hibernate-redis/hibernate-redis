@@ -3,7 +3,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <groupId>com.github.debop</groupId>
+        <groupId>com.github.hibernate-redis</groupId>
         <artifactId>hibernate-redis-parent</artifactId>
         <version>1.6.3-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
@@ -14,7 +14,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.github.debop</groupId>
+            <groupId>com.github.hibernate-redis</groupId>
             <artifactId>hibernate-redis</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
@@ -40,12 +40,6 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-        </dependency>
-
-        <!-- Guava -->
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
         </dependency>
 
         <!-- joda-time -->
@@ -134,7 +128,7 @@
         <!-- Hikari CP -->
         <dependency>
             <groupId>com.zaxxer</groupId>
-            <artifactId>HikariCP-java6</artifactId>
+            <artifactId>HikariCP</artifactId>
             <scope>compile</scope>
         </dependency>
 
@@ -159,7 +153,7 @@
             <plugin>
                 <groupId>com.mysema.maven</groupId>
                 <artifactId>apt-maven-plugin</artifactId>
-                <version>1.1.1</version>
+                <version>1.1.3</version>
                 <executions>
                     <execution>
                         <goals>

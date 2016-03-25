@@ -1,8 +1,8 @@
-hibernate-redis  [![Build Status](https://travis-ci.org/debop/hibernate-redis.png)](https://travis-ci.org/debop/hibernate-redis)
+hibernate-redis  [![Build Status](https://travis-ci.org/hibernate-redis/hibernate-redis.png)](https://travis-ci.org/hibernate-redis/hibernate-redis)
 ===============
 
-[hibernate][1] (4.2.x.Final, 4.3.x.Final) 2nd level cache using redis server.
-with [jedis][2]  2.4.1 or higher
+[Hibernate][1] (4.2.x.Final, 4.3.x.Final) 2nd level cache using redis server.
+with [Jedis][2]  2.4.1 or higher
 
 reduce cache size by [Fast-Serialization][fst] and [snappy-java][snappy]. thanks!
 try serialization [benchmark][benchmark].
@@ -21,21 +21,10 @@ add dependency
 
 ```xml
 <dependency>
-    <groupId>com.github.debop</groupId>
+    <groupId>com.github.hibernate-redis</groupId>
     <artifactId>hibernate-redis</artifactId>
     <version>1.6.1</version>
 </dependency>
-```
-
-add repository
-
-```xml
-<repositories>
-    <repository>
-        <id>debop-releases-bintray</id>
-        <url>http://dl.bintray.com/debop/maven</url>
-    </repository>
-</repositories>
 ```
 
 ### setup hibernate configuration
@@ -68,7 +57,7 @@ sample for hibernate-redis.properties
 ```ini
  ##########################################################
  #
- # properities for hibernate-redis
+ # properties for hibernate-redis
  #
  ##########################################################
 
@@ -83,7 +72,7 @@ sample for hibernate-redis.properties
  # redis.database=0
  redis.database=1
 
- # hiberante 2nd cache default expiry (seconds)
+ # Hibernate 2nd cache default expiry (seconds)
  redis.expiryInSeconds=120
 
  # expiry of hibernate.common region (seconds) // hibernate is prefix, region name is common
@@ -127,9 +116,9 @@ read [HibernateCacheTest.java][3] for more usage.
 
 [1]: http://www.hibernate.org/
 [2]: https://github.com/xetorthio/jedis
-[3]: https://github.com/debop/hibernate-redis/blob/master/hibernate-redis/src/test/java/org/hibernate/test/cache/HibernateCacheTest.java
+[3]: https://github.com/hibernate-redis/hibernate-redis/blob/master/hibernate-redis/src/test/java/org/hibernate/test/cache/HibernateCacheTest.java
 [4]: http://projects.spring.io/spring-data-jpa/
 [lombok]: http://www.projectlombok.org/
 [fst]: https://github.com/RuedigerMoeller/fast-serialization
 [snappy]: https://github.com/xerial/snappy-java
-[benchmark]: https://github.com/debop/hibernate-redis/blob/master/hibernate-redis/src/test/java/org/hibernate/test/serializer/SerializerTest.java
+[benchmark]: https://github.com/hibernate-redis/hibernate-redis/blob/master/hibernate-redis/src/test/java/org/hibernate/test/serializer/SerializerTest.java

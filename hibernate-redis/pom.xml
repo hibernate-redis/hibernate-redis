@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <groupId>com.github.debop</groupId>
+        <groupId>com.github.hibernate-redis</groupId>
         <artifactId>hibernate-redis-parent</artifactId>
         <version>1.6.3-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
@@ -12,7 +12,7 @@
     <packaging>jar</packaging>
 
     <name>hibernate-redis</name>
-    <url>https://github.com/debop/hibernate-redis</url>
+    <url>https://github.com/hibernate-redis/hibernate-redis</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -96,16 +96,11 @@
             <artifactId>junit-benchmarks</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <scope>test</scope>
-        </dependency>
 
         <!-- Hikari CP -->
         <dependency>
             <groupId>com.zaxxer</groupId>
-            <artifactId>HikariCP-java6</artifactId>
+            <artifactId>HikariCP</artifactId>
             <scope>test</scope>
         </dependency>
 
