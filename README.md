@@ -1,12 +1,10 @@
-hibernate-redis  [![Build Status](https://travis-ci.org/hibernate-redis/hibernate-redis.png)](https://travis-ci.org/hibernate-redis/hibernate-redis)
+hibernate-redis  [![Build Status](https://travis-ci.org/hibernate-redis/hibernate-redis.png)](https://travis-ci.org/hibernate-redis/hibernate-redis) [![Join the chat at https://gitter.im/hibernate-redis/hibernate-redis](https://badges.gitter.im/hibernate-redis/hibernate-redis.svg)](https://gitter.im/hibernate-redis/hibernate-redis?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 ===============
-
-[![Join the chat at https://gitter.im/hibernate-redis/hibernate-redis](https://badges.gitter.im/hibernate-redis/hibernate-redis.svg)](https://gitter.im/hibernate-redis/hibernate-redis?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 [Hibernate][1] (4.2.x.Final, 4.3.x.Final) 2nd level cache using redis server.
 with [Jedis][2]  2.4.1 or higher
 
-reduce cache size by [Fast-Serialization][fst] and [snappy-java][snappy]. thanks!
+Reduce cache size by [Fast-Serialization][fst] and [snappy-java][snappy]. Thanks!
 try serialization [benchmark][benchmark].
 
 ### NOTE
@@ -29,9 +27,9 @@ add dependency
 </dependency>
 ```
 
-### setup hibernate configuration
+### Setup hibernate configuration
 
-setup hibernate configuration.
+Setup hibernate configuration.
 
 ```java
 // Secondary Cache
@@ -50,11 +48,11 @@ props.setProperty(Environment.TRANSACTION_STRATEGY, JdbcTransactionFactory.class
 props.put(Environment.CACHE_PROVIDER_CONFIG, "hibernate-redis.properties");
 ```
 
-also same configuration for using Spring Framework or [Spring Data JPA][4]
+Also same configuration for using Spring Framework or [Spring Data JPA][4]
 
-### redis settings for hibernate-redis
+### Redis settings for hibernate-redis
 
-sample for hibernate-redis.properties
+Sample for hibernate-redis.properties
 
 ```ini
  ##########################################################
@@ -86,7 +84,7 @@ sample for hibernate-redis.properties
 
 ### Setup hibernate entity to use cache
 
-add @org.hibernate.annotations.Cache annotation to Entity class like this
+Add @org.hibernate.annotations.Cache annotation to Entity class like this
 
 ```java
 @Entity
@@ -108,11 +106,11 @@ public class Item implements Serializable {
 
 ### How to monitor hibernate-cache is running
 
-run "redis-cli monitor" command in terminal. you can see putting cached items, retrieving cached items.
+Run "redis-cli monitor" command in terminal. you can see putting cached items, retrieving cached items.
 
 ### Sample code
 
-read [HibernateCacheTest.java][3] for more usage.
+Read [HibernateCacheTest.java][3] for more usage.
 
 
 
