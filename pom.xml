@@ -218,10 +218,22 @@
         <url>http://github.com/hibernate-redis/hibernate-redis/issues</url>
     </issueManagement>
 
+    <developers>
+        <developer>
+            <name>Jon Palmer</name>
+            <email>jpalmer@nanigans.com</email>
+        </developer>
+        <developer>
+            <name>Johno Crawford</name>
+            <email>johno@sulake.com</email>
+        </developer>
+    </developers>
+
     <scm>
         <connection>scm:git:git@github.com:hibernate-redis/hibernate-redis.git</connection>
         <url>scm:git:git@github.com:hibernate-redis/hibernate-redis.git</url>
         <developerConnection>scm:git:git@github.com:hibernate-redis/hibernate-redis.git</developerConnection>
+        <tag>HEAD</tag>
     </scm>
 
     <distributionManagement>
