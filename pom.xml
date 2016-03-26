@@ -222,17 +222,21 @@
         <developer>
             <name>Jon Palmer</name>
             <email>jpalmer@nanigans.com</email>
+            <organization>Nanigans</organization>
+            <organizationUrl>http://www.nanigans.com</organizationUrl>
         </developer>
         <developer>
             <name>Johno Crawford</name>
             <email>johno@sulake.com</email>
+            <organization>Sulake</organization>
+            <organizationUrl>http://www.sulake.com</organizationUrl>
         </developer>
     </developers>
 
     <scm>
-        <connection>scm:git:git@github.com:hibernate-redis/hibernate-redis.git</connection>
-        <url>scm:git:git@github.com:hibernate-redis/hibernate-redis.git</url>
-        <developerConnection>scm:git:git@github.com:hibernate-redis/hibernate-redis.git</developerConnection>
+        <connection>scm:git:ssh://git@github.com/hibernate-redis/hibernate-redis.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/hibernate-redis/hibernate-redis.git</developerConnection>
+        <url>https://github.com/hibernate-redis/hibernate-redis</url>
         <tag>HEAD</tag>
     </scm>
 
@@ -271,6 +275,10 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.5</version>
             </plugin>
         </plugins>
     </build>
