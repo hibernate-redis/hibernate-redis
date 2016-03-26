@@ -11,12 +11,9 @@
     <artifactId>hibernate-redis</artifactId>
     <packaging>jar</packaging>
 
-    <name>hibernate-redis</name>
+    <name>Hibernate Redis</name>
+    <description>Hibernate 2nd level cache using Redis.</description>
     <url>https://github.com/hibernate-redis/hibernate-redis</url>
-
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
 
     <dependencies>
         <!-- Hibernate -->

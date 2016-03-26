@@ -8,6 +8,8 @@
     <artifactId>hibernate-redis-parent</artifactId>
     <version>1.6.3-SNAPSHOT</version>
     <packaging>pom</packaging>
+    <name>Hibernate Redis Parent</name>
+    <description>Hibernate 2nd level cache using Redis.</description>
     <url>https://github.com/hibernate-redis/hibernate-redis</url>
 
     <properties>
@@ -263,7 +265,7 @@
 
     <profiles>
         <profile>
-            <id>stageRelease</id>
+            <id>release</id>
             <build>
                 <plugins>
                     <plugin>
@@ -283,12 +285,6 @@
                                 <id>attach-javadocs</id>
                                 <goals>
                                     <goal>jar</goal>
-                                </goals>
-                            </execution>
-                            <execution>
-                                <id>attach-javadocs-2</id>
-                                <goals>
-                                    <goal>aggregate</goal>
                                 </goals>
                             </execution>
                         </executions>

@@ -11,6 +11,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>hibernate-examples</artifactId>
+    <packaging>jar</packaging>
+
+    <name>Hibernate Redis Examples</name>
+    <description>Hibernate 2nd level cache using Redis examples.</description>
+    <url>https://github.com/hibernate-redis/hibernate-redis</url>
 
     <dependencies>
         <dependency>
