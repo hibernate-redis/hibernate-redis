@@ -72,7 +72,7 @@ public class JedisClient {
      * @param jedisPool       JedisPool instance
      * @param expiryInSeconds expiration in seconds
      */
-    public JedisClient(Pool<Jedis>  jedisPool, int expiryInSeconds) {
+    public JedisClient(Pool<Jedis> jedisPool, int expiryInSeconds) {
         log.debug("JedisClient created. jedisPool=[{}], expiryInSeconds=[{}]", jedisPool, expiryInSeconds);
 
         this.jedisPool = jedisPool;
@@ -484,6 +484,15 @@ public class JedisClient {
             Long incrementedTimestamp = incrementTimestamp(rawKey);
             log.warn("updated timestamp failed {} times. Fall back to incrementing: key=[{}], timestamp=[{}]", updateAttempts, key, incrementedTimestamp);
             return incrementedTimestamp;
+        }
+    }
+
+    /**
+     * Cleanup any resources thathe JedisClient might have references to.
+     */
+    public void destroy() {
+        if (jedisPool != null) {
+            jedisPool.destroy();
         }
     }
 

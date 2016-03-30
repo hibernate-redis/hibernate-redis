@@ -61,10 +61,7 @@ public class SingletonRedisRegionFactory extends AbstractRedisRegionFactory {
 
         if (ReferenceCount.decrementAndGet() == 0) {
             try {
-                redis = null;
-                if (expirationThread != null) {
-                    expirationThread.interrupt();
-                }
+                destroy();
                 log.info("Stopped SingletonRedisRegionFactory");
             } catch (Exception ignored) { }
         }
