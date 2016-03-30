@@ -13,6 +13,9 @@ bin
 *.war
 *.ear
 
+# java dos
+docs
+
 # Gradle
 .gradle
 build
