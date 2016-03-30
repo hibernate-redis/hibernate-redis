@@ -45,6 +45,7 @@ public class SingletonRedisRegionFactory extends AbstractRedisRegionFactory {
         log.info("starting SingletonRedisRegionFactory...");
 
         this.settings = settings;
+        this.props = JedisTool.loadCacheProperties(properties);
         try {
             createJedisClientAndTimestamper(settings, properties);
             ReferenceCount.incrementAndGet();

@@ -41,6 +41,7 @@ public class RedisRegionFactory extends AbstractRedisRegionFactory {
         log.info("starting RedisRegionFactory...");
 
         this.settings = settings;
+        this.props = JedisTool.loadCacheProperties(properties);
         try {
             createJedisClientAndTimestamper(settings, properties);
             log.info("RedisRegionFactory is started");

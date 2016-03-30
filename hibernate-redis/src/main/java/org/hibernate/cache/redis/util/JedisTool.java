@@ -21,7 +21,6 @@ import org.hibernate.cache.redis.jedis.JedisClient;
 import org.hibernate.cache.redis.timestamper.JedisCacheTimestamper;
 import org.hibernate.cache.redis.timestamper.JedisCacheTimestamperJvmImpl;
 import org.hibernate.cfg.Environment;
-import org.hibernate.cfg.Settings;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 import redis.clients.jedis.Protocol;
@@ -30,7 +29,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.net.URI;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Properties;
+import java.util.Set;
 
 /**
  * Jedis Helper class
@@ -41,7 +43,8 @@ import java.util.Properties;
 @Slf4j
 public final class JedisTool {
 
-    public static final String EXPIRY_PROPERTY_PREFIX = "redis.expiryInSeconds.";
+    private static final String EXPIRE_IN_SECONDS = "redis.expiryInSeconds";
+    private static final String EXPIRY_PROPERTY_PREFIX = EXPIRE_IN_SECONDS + ".";
     private static final String FILE_URL_PREFIX = "file:";
     public static final String TIMESTAMPER_PROPERTY_KEY = "redis.timestamper.class";
     public static final Class<?> DEFAULT_TIMESTAMPER_CLASS = JedisCacheTimestamperJvmImpl.class;
@@ -53,29 +56,39 @@ public final class JedisTool {
      * create {@link org.hibernate.cache.redis.jedis.JedisClient} instance.
      */
     public static JedisClient createJedisClient(Properties props) {
-        log.info("create JedisClient.");
-        Properties cacheProps = loadCacheProperties(props);
-        Integer expiryInSeconds = Integer.decode(cacheProps.getProperty("redis.expiryInSeconds", "120"));  // 120 seconds
-        cacheProperties = cacheProps;
+        log.info("Creating JedisClient.");
 
-        return new JedisClient(createJedisPool(cacheProps), expiryInSeconds);
+        return new JedisClient(createJedisPool(props), getDefaultExpireInSeconds(props));
     }
 
     /**
-     * create {@link redis.clients.jedis.JedisPool} instance.
+     * create {@link redis.clients.util.Pool<Jedis>} instance.
      */
-    public static JedisPool createJedisPool(Properties props) {
+    public static Pool<Jedis> createJedisPool(Properties props) {
 
         String host = props.getProperty("redis.host", "localhost");
         Integer port = Integer.decode(props.getProperty("redis.port", String.valueOf(Protocol.DEFAULT_PORT)));
         Integer timeout = Integer.decode(props.getProperty("redis.timeout", String.valueOf(Protocol.DEFAULT_TIMEOUT))); // msec
         String password = props.getProperty("redis.password", null);
         Integer database = Integer.decode(props.getProperty("redis.database", String.valueOf(Protocol.DEFAULT_DATABASE)));
+        String sentinelsString = props.getProperty("redis.sentinels", null);
+        Set<String> sentinels = sentinelsString != null ? new HashSet<String>(Arrays.asList(sentinelsString.split(","))) : null;
+        String masterName = props.getProperty("redis.masterName", null);
 
-        log.info("create JedisPool. host=[{}], port=[{}], timeout=[{}], password=[{}], database=[{}]",
-                 host, port, timeout, password, database);
+        JedisPoolConfig jedisPoolConfig = createJedisPoolConfig();
 
-        return new JedisPool(createJedisPoolConfig(), host, port, timeout, password, database);
+        Pool<Jedis> pool;
+        if (sentinels != null && !sentinels.isEmpty() && masterName != null) {
+            log.info("Creating JedisSentinelPool. masterName=[{}], sentinels=[{}], timeout=[{}], database=[{}]",
+                     masterName, sentinels, timeout, database);
+            pool = new JedisSentinelPool(masterName, sentinels, jedisPoolConfig, timeout, password, database);
+        } else{
+            log.info("Creating JedisPool. host=[{}], port=[{}], timeout=[{}], database=[{}]",
+                     host, port, timeout, database);
+
+            pool = new JedisPool(jedisPoolConfig, host, port, timeout, password, database);
+        }
+        return pool;
     }
 
     public static JedisCacheTimestamper createTimestamper(Settings settings, Properties properties, JedisClient jedisClient) {
@@ -103,8 +116,11 @@ public final class JedisTool {
         return poolConfig;
     }
 
-    private static Properties loadCacheProperties(final Properties props) {
+    public static Properties loadCacheProperties(final Properties props) {
         Properties cacheProps = new Properties();
+        cacheProps.putAll(props); // start with the properties we got
+
+        Properties fileSystemProperties = new Properties();
         String cachePath = props.getProperty(Environment.CACHE_PROVIDER_CONFIG,
                                              "hibernate-redis.properties");
 
@@ -119,7 +135,7 @@ public final class JedisTool {
                 // load from resources stream
                 is = JedisTool.class.getClassLoader().getResourceAsStream(cachePath);
             }
-            cacheProps.load(is);
+            fileSystemProperties.load(is);
         } catch (Exception e) {
             log.warn("Fail to load cache properties. cachePath=" + cachePath, e);
         } finally {
@@ -127,39 +143,38 @@ public final class JedisTool {
                 try { is.close(); } catch (Exception ignored) { }
             }
         }
+        // now add and override with any settings from the cache_provider_config
+        cacheProps.putAll(fileSystemProperties);
         return cacheProps;
     }
 
     /**
      * Get expire time out for the specified region
      *
-     * @param regionName    region name defined at Entity
-     * @param defaultExpiry default expiry in seconds
+     * @param props      properties containing expiration settings
+     * @param regionName region name defined at Entity
      * @return expiry in seconds
      */
-    public static int getExpireInSeconds(final String regionName, final int defaultExpiry) {
-        if (cacheProperties == null)
+    public static int getExpireInSeconds(final Properties props, final String regionName) {
+        int defaultExpiry = getDefaultExpireInSeconds(props);
+        if (props == null)
             return defaultExpiry;
-        return Integer.valueOf(getProperty(EXPIRY_PROPERTY_PREFIX + regionName, String.valueOf(defaultExpiry)));
+        int expireInSeconds = Integer.valueOf(props.getProperty(EXPIRY_PROPERTY_PREFIX + regionName, String.valueOf(defaultExpiry)));
+        log.debug("getExpireInSeconds. regionName=[{}], expireInSeconds=[{}]",
+                regionName, expireInSeconds);
+        return expireInSeconds;
     }
 
     /**
-     * retrieve property value in hibernate-redis.properties
+     * Get the default expire time from the supplied properties
      *
-     * @param name         property key
-     * @param defaultValue default value
-     * @return property value
+     * @param props   properties containing expiration settings
+     * @return expiry in seconds
      */
-    public static String getProperty(final String name, final String defaultValue) {
-        if (cacheProperties == null)
-            return defaultValue;
-        try {
-            String value = cacheProperties.getProperty(name, defaultValue);
-            log.debug("get property. name=[{}], value=[{}], defaultValue=[{}]", name, value, defaultValue);
-            return value;
-        } catch (Exception ignored) {
-            return defaultValue;
-        }
-    }
+    private static int getDefaultExpireInSeconds(final Properties props) {
+        if (props == null)
+            return JedisClient.DEFAULT_EXPIRY_IN_SECONDS;
 
+        return Integer.decode(props.getProperty(EXPIRE_IN_SECONDS, String.valueOf(JedisClient.DEFAULT_EXPIRY_IN_SECONDS)));
+    }
 }
