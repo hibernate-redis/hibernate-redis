@@ -21,9 +21,13 @@ import org.hibernate.cache.redis.jedis.JedisClient;
 import org.hibernate.cache.redis.timestamper.JedisCacheTimestamper;
 import org.hibernate.cache.redis.timestamper.JedisCacheTimestamperJvmImpl;
 import org.hibernate.cfg.Environment;
+import org.hibernate.cfg.Settings;
+import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
+import redis.clients.jedis.JedisSentinelPool;
 import redis.clients.jedis.Protocol;
+import redis.clients.util.Pool;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -48,7 +52,6 @@ public final class JedisTool {
     private static final String FILE_URL_PREFIX = "file:";
     public static final String TIMESTAMPER_PROPERTY_KEY = "redis.timestamper.class";
     public static final Class<?> DEFAULT_TIMESTAMPER_CLASS = JedisCacheTimestamperJvmImpl.class;
-    private static Properties cacheProperties = null;
 
     private JedisTool() { }
 
