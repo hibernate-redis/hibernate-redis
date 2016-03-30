@@ -48,7 +48,7 @@ public final class JedisTool {
      * create {@link org.hibernate.cache.redis.jedis.JedisClient} instance.
      */
     public static JedisClient createJedisClient(Properties props) {
-        log.info("create JedisClient.");
+        log.info("Creating JedisClient.");
 
         return new JedisClient(createJedisPool(props), getDefaultExpireInSeconds(props));
     }
@@ -64,8 +64,8 @@ public final class JedisTool {
         String password = props.getProperty("redis.password", null);
         Integer database = Integer.decode(props.getProperty("redis.database", String.valueOf(Protocol.DEFAULT_DATABASE)));
 
-        log.info("create JedisPool. host=[{}], port=[{}], timeout=[{}], password=[{}], database=[{}]",
-                 host, port, timeout, password, database);
+        log.info("Creating JedisPool. host=[{}], port=[{}], timeout=[{}], database=[{}]",
+                 host, port, timeout, database);
 
         return new JedisPool(createJedisPoolConfig(), host, port, timeout, password, database);
     }
