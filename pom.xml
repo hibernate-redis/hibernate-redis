@@ -4,7 +4,7 @@
 
     <groupId>com.github.hibernate-redis</groupId>
     <artifactId>hibernate-redis-parent</artifactId>
-    <version>1.6.4</version>
+    <version>1.6.5-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>Hibernate Redis Parent</name>
     <description>Hibernate 2nd level cache using Redis.</description>
@@ -235,7 +235,7 @@
         <connection>scm:git:ssh://git@github.com/hibernate-redis/hibernate-redis.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/hibernate-redis/hibernate-redis.git</developerConnection>
         <url>https://github.com/hibernate-redis/hibernate-redis</url>
-        <tag>1.6.4</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <distributionManagement>
