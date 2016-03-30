@@ -59,11 +59,7 @@ public class RedisRegionFactory extends AbstractRedisRegionFactory {
         log.debug("Stopping RedisRegionFactory...");
 
         try {
-            if (expirationThread != null) {
-                expirationThread.interrupt();
-                expirationThread = null;
-            }
-            redis = null;
+            destroy();
             log.info("RedisRegionFactory is stopped.");
         } catch (Exception e) {
             log.error("Failed to stop RedisRegionFactory.", e);

@@ -66,6 +66,10 @@ abstract class AbstractRedisRegionFactory implements RegionFactory {
      * JedisClient instance.
      */
     protected JedisClient redis = null;
+
+    /**
+     * JedisCacheTimestamper instance.
+     */
     protected JedisCacheTimestamper timestamper = null;
 
     /**
@@ -176,6 +180,21 @@ abstract class AbstractRedisRegionFactory implements RegionFactory {
                                          regionName,
                                          properties,
                                          timestamper);
+    }
+
+    /**
+     * Cleanup any resources that the regionFactory might have references to.
+     */
+    protected void destroy() {
+        if (expirationThread != null) {
+            expirationThread.interrupt();
+            expirationThread = null;
+        }
+        if (redis != null) {
+            redis.destroy();
+            redis = null;
+        }
+        timestamper = null;
     }
 
     protected synchronized void startExpirationThread(final JedisClient redis) {
