@@ -38,14 +38,12 @@ public class RedisRegionFactory extends AbstractRedisRegionFactory {
 
     @Override
     public void start(Settings settings, Properties properties) throws CacheException {
-        log.info("starting RedisRegionFactory...");
+        log.info("Starting RedisRegionFactory...");
 
         this.settings = settings;
+        this.props = JedisTool.loadCacheProperties(properties);
         try {
-            if (redis == null) {
-                this.redis = JedisTool.createJedisClient(props);
-                manageExpiration(redis);
-            }
+            createJedisClientAndTimestamper(settings, properties);
             log.info("RedisRegionFactory is started");
         } catch (Exception e) {
             log.error("Fail to start RedisRegionFactory.", e);
@@ -55,8 +53,10 @@ public class RedisRegionFactory extends AbstractRedisRegionFactory {
 
     @Override
     public void stop() {
-        if (redis == null) return;
-        log.debug("stopping RedisRegionFactory...");
+        if (redis == null) {
+            return;
+        }
+        log.debug("Stopping RedisRegionFactory...");
 
         try {
             if (expirationThread != null) {
@@ -66,7 +66,7 @@ public class RedisRegionFactory extends AbstractRedisRegionFactory {
             redis = null;
             log.info("RedisRegionFactory is stopped.");
         } catch (Exception e) {
-            log.error("Fail to stop RedisRegionFactory.", e);
+            log.error("Failed to stop RedisRegionFactory.", e);
             throw new CacheException(e);
         }
     }

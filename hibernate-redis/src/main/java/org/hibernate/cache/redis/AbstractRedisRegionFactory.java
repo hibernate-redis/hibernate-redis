@@ -22,7 +22,8 @@ import org.hibernate.cache.redis.jedis.JedisClient;
 import org.hibernate.cache.redis.regions.*;
 import org.hibernate.cache.redis.strategy.RedisAccessStrategyFactory;
 import org.hibernate.cache.redis.strategy.RedisAccessStrategyFactoryImpl;
-import org.hibernate.cache.redis.util.Timestamper;
+import org.hibernate.cache.redis.timestamper.JedisCacheTimestamper;
+import org.hibernate.cache.redis.util.JedisTool;
 import org.hibernate.cache.spi.*;
 import org.hibernate.cache.spi.access.AccessType;
 import org.hibernate.cfg.Settings;
@@ -52,7 +53,7 @@ abstract class AbstractRedisRegionFactory implements RegionFactory {
      */
     protected Settings settings;
 
-    protected final Properties props;
+    protected Properties props;
 
     protected final RedisAccessStrategyFactory accessStrategyFactory = new RedisAccessStrategyFactoryImpl();
 
@@ -65,6 +66,7 @@ abstract class AbstractRedisRegionFactory implements RegionFactory {
      * JedisClient instance.
      */
     protected JedisClient redis = null;
+    protected JedisCacheTimestamper timestamper = null;
 
     /**
      * expiration management thread
@@ -88,8 +90,18 @@ abstract class AbstractRedisRegionFactory implements RegionFactory {
      *
      * @return true, optimize for minimal puts
      */
+    @Override
     public boolean isMinimalPutsEnabledByDefault() {
         return true;
+    }
+
+    protected void createJedisClientAndTimestamper(Settings settings, Properties properties) {
+        if (redis != null) {
+            throw new IllegalStateException("Jedis client already initialized!");
+        }
+        redis = JedisTool.createJedisClient(properties);
+        timestamper = JedisTool.createTimestamper(settings, properties, redis);
+        startExpirationThread(redis);
     }
 
     @Override
@@ -97,8 +109,9 @@ abstract class AbstractRedisRegionFactory implements RegionFactory {
         return AccessType.READ_WRITE;
     }
 
+    @Override
     public long nextTimestamp() {
-        return Timestamper.next();
+        return timestamper.next();
     }
 
     @Override
@@ -111,7 +124,8 @@ abstract class AbstractRedisRegionFactory implements RegionFactory {
                                      regionName,
                                      settings,
                                      metadata,
-                                     properties);
+                                     properties,
+                                     timestamper);
     }
 
     @Override
@@ -124,7 +138,8 @@ abstract class AbstractRedisRegionFactory implements RegionFactory {
                                         regionName,
                                         settings,
                                         metadata,
-                                        properties);
+                                        properties,
+                                        timestamper);
     }
 
     @Override
@@ -137,7 +152,8 @@ abstract class AbstractRedisRegionFactory implements RegionFactory {
                                          regionName,
                                          settings,
                                          metadata,
-                                         properties);
+                                         properties,
+                                         timestamper);
     }
 
     @Override
@@ -147,7 +163,8 @@ abstract class AbstractRedisRegionFactory implements RegionFactory {
         return new RedisQueryResultsRegion(accessStrategyFactory,
                                            redis,
                                            regionName,
-                                           properties);
+                                           properties,
+                                           timestamper);
     }
 
     @Override
@@ -157,12 +174,14 @@ abstract class AbstractRedisRegionFactory implements RegionFactory {
         return new RedisTimestampsRegion(accessStrategyFactory,
                                          redis,
                                          regionName,
-                                         properties);
+                                         properties,
+                                         timestamper);
     }
 
-    protected synchronized void manageExpiration(final JedisClient redis) {
-        if (expirationThread != null && expirationThread.isAlive())
+    protected synchronized void startExpirationThread(final JedisClient redis) {
+        if (expirationThread != null && expirationThread.isAlive()) {
             return;
+        }
 
         expirationThread = new Thread(new Runnable() {
             @Override
