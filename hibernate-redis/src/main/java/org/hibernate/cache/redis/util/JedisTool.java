@@ -18,8 +18,15 @@ package org.hibernate.cache.redis.util;
 
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.cache.redis.jedis.JedisClient;
+import org.hibernate.cache.redis.timestamper.JedisCacheTimestamper;
+import org.hibernate.cache.redis.timestamper.JedisCacheTimestamperJvmImpl;
 import org.hibernate.cfg.Environment;
-import redis.clients.jedis.*;
+import org.hibernate.cfg.Settings;
+import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
+import redis.clients.jedis.JedisPoolConfig;
+import redis.clients.jedis.JedisSentinelPool;
+import redis.clients.jedis.Protocol;
 import redis.clients.util.Pool;
 
 import java.io.File;
@@ -43,6 +50,8 @@ public final class JedisTool {
     private static final String EXPIRE_IN_SECONDS = "redis.expiryInSeconds";
     private static final String EXPIRY_PROPERTY_PREFIX = EXPIRE_IN_SECONDS + ".";
     private static final String FILE_URL_PREFIX = "file:";
+    public static final String TIMESTAMPER_PROPERTY_KEY = "redis.timestamper.class";
+    public static final Class<?> DEFAULT_TIMESTAMPER_CLASS = JedisCacheTimestamperJvmImpl.class;
 
     private JedisTool() { }
 
@@ -83,6 +92,24 @@ public final class JedisTool {
             pool = new JedisPool(jedisPoolConfig, host, port, timeout, password, database);
         }
         return pool;
+    }
+
+    public static JedisCacheTimestamper createTimestamper(Settings settings, Properties properties, JedisClient jedisClient) {
+        String timestamperClazzName = properties.getProperty(TIMESTAMPER_PROPERTY_KEY, DEFAULT_TIMESTAMPER_CLASS.getName());
+
+        JedisCacheTimestamper timestamper;
+        try {
+            Class<?> clazz = Class.forName(timestamperClazzName);
+            timestamper = (JedisCacheTimestamper) clazz.newInstance();
+        } catch (Exception e) {
+            throw new IllegalStateException(e.getMessage(), e);
+        }
+
+        timestamper.setSettings(settings);
+        timestamper.setProperties(properties);
+        timestamper.setJedisClient(jedisClient);
+
+        return timestamper;
     }
 
     private static JedisPoolConfig createJedisPoolConfig() {
