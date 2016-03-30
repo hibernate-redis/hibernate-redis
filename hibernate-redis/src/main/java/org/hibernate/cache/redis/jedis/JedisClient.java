@@ -72,7 +72,7 @@ public class JedisClient {
      * @param jedisPool       JedisPool instance
      * @param expiryInSeconds expiration in seconds
      */
-    public JedisClient(Pool<Jedis>  jedisPool, int expiryInSeconds) {
+    public JedisClient(Pool<Jedis> jedisPool, int expiryInSeconds) {
         log.debug("JedisClient created. jedisPool=[{}], expiryInSeconds=[{}]", jedisPool, expiryInSeconds);
 
         this.jedisPool = jedisPool;
