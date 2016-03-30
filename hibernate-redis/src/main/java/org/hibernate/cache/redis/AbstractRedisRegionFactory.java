@@ -90,16 +90,18 @@ abstract class AbstractRedisRegionFactory implements RegionFactory {
      *
      * @return true, optimize for minimal puts
      */
+    @Override
     public boolean isMinimalPutsEnabledByDefault() {
         return true;
     }
 
     protected void createJedisClientAndTimestamper(Settings settings, Properties properties) {
-        if (redis == null) {
-            redis = JedisTool.createJedisClient(properties);
-            timestamper = JedisTool.createTimestamper(settings, properties, redis);
-            manageExpiration(redis);
+        if (redis != null) {
+            throw new IllegalStateException("Jedis client already initialized!");
         }
+        redis = JedisTool.createJedisClient(properties);
+        timestamper = JedisTool.createTimestamper(settings, properties, redis);
+        startExpirationThread(redis);
     }
 
     @Override
@@ -107,6 +109,7 @@ abstract class AbstractRedisRegionFactory implements RegionFactory {
         return AccessType.READ_WRITE;
     }
 
+    @Override
     public long nextTimestamp() {
         return timestamper.next();
     }
@@ -175,9 +178,10 @@ abstract class AbstractRedisRegionFactory implements RegionFactory {
                                          timestamper);
     }
 
-    protected synchronized void manageExpiration(final JedisClient redis) {
-        if (expirationThread != null && expirationThread.isAlive())
+    protected synchronized void startExpirationThread(final JedisClient redis) {
+        if (expirationThread != null && expirationThread.isAlive()) {
             return;
+        }
 
         expirationThread = new Thread(new Runnable() {
             @Override
