@@ -73,12 +73,12 @@ public final class JedisTool {
 
         Pool<Jedis> pool;
         if (sentinels != null && !sentinels.isEmpty() && masterName != null) {
-            log.info("create JedisSentinelPool. masterName=[{}], sentinels=[{}], timeout=[{}], password=[{}], database=[{}]",
-                     masterName, sentinels, timeout, password, database);
+            log.info("Creating JedisSentinelPool. masterName=[{}], sentinels=[{}], timeout=[{}], database=[{}]",
+                     masterName, sentinels, timeout, database);
             pool = new JedisSentinelPool(masterName, sentinels, jedisPoolConfig, timeout, password, database);
         } else{
-            log.info("create JedisPool. host=[{}], port=[{}], timeout=[{}], password=[{}], database=[{}]",
-                     host, port, timeout, password, database);
+            log.info("Creating JedisPool. host=[{}], port=[{}], timeout=[{}], database=[{}]",
+                     host, port, timeout, database);
 
             pool = new JedisPool(jedisPoolConfig, host, port, timeout, password, database);
         }
