@@ -18,7 +18,7 @@ description = 'Hibernate 2nd level cache using Redis.'
 archivesBaseName = "hibernate-redis"
 
 javadoc {
-    destinationDir = file("docs/javadoc")
+    destinationDir = file("${buildDir}/docs/javadoc")
     failOnError = false
 }
 
