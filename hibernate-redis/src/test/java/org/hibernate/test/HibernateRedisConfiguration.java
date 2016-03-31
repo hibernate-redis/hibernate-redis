@@ -78,13 +78,7 @@ public class HibernateRedisConfiguration {
         config.setInitializationFailFast(true);
         config.setConnectionTestQuery("SELECT 1");
 
-        return new HikariDataSource(config) {
-            // multi-pool support was removed from Hikari
-            @Override
-            public Connection getConnection(String username, String password) throws SQLException {
-                return getConnection();
-            }
-        };
+        return new HikariDataSource(config);
     }
 
     @Bean
