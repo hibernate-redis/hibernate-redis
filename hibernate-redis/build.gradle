@@ -1,3 +1,17 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.bmuschko:gradle-nexus-plugin:2.3.1'
+        classpath "io.codearte.gradle.nexus:gradle-nexus-staging-plugin:0.5.3"
+    }
+}
+
+plugins {
+    id 'net.researchgate.release' version '2.3.4'
+}
 
 description = 'Hibernate 2nd level cache using Redis.'
 
@@ -10,6 +24,7 @@ javadoc {
 
 apply plugin: 'net.researchgate.release'
 apply plugin: 'com.bmuschko.nexus'
+apply plugin: 'io.codearte.nexus-staging'
 
 dependencies {
     compile(group: 'org.hibernate', name: 'hibernate-core', version:hibernateVersion) {
