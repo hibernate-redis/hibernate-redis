@@ -1,0 +1,101 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.bmuschko:gradle-nexus-plugin:2.3.1'
+        classpath "io.codearte.gradle.nexus:gradle-nexus-staging-plugin:0.5.3"
+    }
+}
+
+plugins {
+    id 'net.researchgate.release' version '2.3.4'
+}
+
+description = 'Hibernate 2nd level cache using Redis.'
+
+archivesBaseName = "hibernate-redis"
+
+javadoc {
+    destinationDir = file("${buildDir}/apidocs")
+    options.encoding = 'UTF-8'
+    failOnError = false
+}
+
+apply plugin: 'net.researchgate.release'
+apply plugin: 'com.bmuschko.nexus'
+apply plugin: 'io.codearte.nexus-staging'
+
+dependencies {
+    compile(group: 'org.hibernate', name: 'hibernate-core', version:hibernateVersion) {
+        exclude(module: 'jboss-logging')
+    }
+    compile group: 'org.hibernate', name: 'hibernate-entitymanager', version:hibernateVersion
+    compile group: 'redis.clients', name: 'jedis', version:'2.6.2'
+    compile group: 'org.xerial.snappy', name: 'snappy-java', version:'1.1.2.1'
+    compile group: 'de.ruedigermoeller', name: 'fst', version:'2.45'
+    compile group: 'org.slf4j', name: 'slf4j-api', version:'1.7.7'
+    compile group: 'ch.qos.logback', name: 'logback-classic', version:'1.1.2'
+    compile(group: 'org.projectlombok', name: 'lombok', version:'1.16.8')
+
+    testCompile group: 'org.hibernate', name: 'hibernate-testing', version:hibernateVersion
+    testCompile group: 'junit', name: 'junit', version:'4.11'
+    testCompile group: 'org.easytesting', name: 'fest-assert', version:'1.4'
+    testCompile group: 'org.hamcrest', name: 'hamcrest-all', version:'1.3'
+    testCompile group: 'com.carrotsearch', name: 'junit-benchmarks', version:'0.7.2'
+    testCompile group: 'com.zaxxer', name: 'HikariCP', version:'2.4.5'
+    testCompile group: 'com.h2database', name: 'h2', version:'1.3.175'
+    testCompile group: 'org.springframework', name: 'spring-core', version:springVersion
+    testCompile group: 'org.springframework', name: 'spring-context', version:springVersion
+    testCompile group: 'org.springframework', name: 'spring-beans', version:springVersion
+    testCompile group: 'org.springframework', name: 'spring-tx', version:springVersion
+    testCompile group: 'org.springframework', name: 'spring-orm', version:springVersion
+    testCompile group: 'org.springframework', name: 'spring-test', version:springVersion
+    testCompile group: 'org.springframework.data', name: 'spring-data-jpa', version:'1.6.0.RELEASE'
+    testCompile group: 'org.mockito', name: 'mockito-core', version:'1.9.5'
+    testCompile(group: 'mysql', name: 'mysql-connector-java', version:'5.1.27')
+}
+
+nexus {
+    sign = true
+}
+
+modifyPom {
+    project {
+        name 'hibernate-redis'
+        packaging 'jar'
+        description 'Hibernate second level cache with Redis'
+        url "https://github.com/hibernate-redis/hibernate-redis"
+        scm {
+            url "https://github.com/hibernate-redis/hibernate-redis"
+            connection "scm:git:ssh://git@github.com/hibernate-redis/hibernate-redis.git"
+            developerConnection "scm:git:ssh://git@github.com/hibernate-redis/hibernate-redis.git"
+        }
+        licenses {
+            license {
+                name 'The Apache Software License, Version 2.0'
+                url 'http://www.apache.org/license/LICENSE-2.0.txt'
+            }
+        }
+        issueManagement {
+            system 'github'
+            url 'http://github.com/hibernate-redis/hibernate-redis/issues'
+        }
+        developers {
+            developer {
+                name 'Jon Palmer'
+                email 'jpalmer@nanigans.com'
+                organization 'Nanigans'
+                organizationUrl 'http://www.nanigans.com'
+            }
+            developer {
+                name 'Johno Crawford'
+                email 'johno@sulake.com'
+                organization 'Sulake'
+                organizationUrl 'http://www.sulake.com'
+            }
+        }
+    }
+}
+
