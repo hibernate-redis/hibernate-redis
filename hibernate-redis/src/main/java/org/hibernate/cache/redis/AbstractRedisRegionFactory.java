@@ -46,8 +46,6 @@ abstract class AbstractRedisRegionFactory implements RegionFactory {
      */
     protected Settings settings;
 
-    protected Properties properties;
-
     protected final RedisAccessStrategyFactory accessStrategyFactory = new RedisAccessStrategyFactoryImpl();
 
     /**
@@ -69,10 +67,6 @@ abstract class AbstractRedisRegionFactory implements RegionFactory {
      * expiration management thread
      */
     protected static Thread expirationThread = null;
-
-    public AbstractRedisRegionFactory(Properties properties) {
-        this.properties = properties;
-    }
 
     /**
      * Whether to optimize for minimals puts or minimal gets.
@@ -121,7 +115,7 @@ abstract class AbstractRedisRegionFactory implements RegionFactory {
                                      regionName,
                                      settings,
                                      metadata,
-                                     properties,
+                                     JedisTool.loadCacheProperties(properties),
                                      timestamper);
     }
 
@@ -135,7 +129,7 @@ abstract class AbstractRedisRegionFactory implements RegionFactory {
                                         regionName,
                                         settings,
                                         metadata,
-                                        properties,
+                                        JedisTool.loadCacheProperties(properties),
                                         timestamper);
     }
 
@@ -149,7 +143,7 @@ abstract class AbstractRedisRegionFactory implements RegionFactory {
                                          regionName,
                                          settings,
                                          metadata,
-                                         properties,
+                                         JedisTool.loadCacheProperties(properties),
                                          timestamper);
     }
 
@@ -160,7 +154,7 @@ abstract class AbstractRedisRegionFactory implements RegionFactory {
         return new RedisQueryResultsRegion(accessStrategyFactory,
                                            redis,
                                            regionName,
-                                           properties,
+                                           JedisTool.loadCacheProperties(properties),
                                            timestamper);
     }
 
@@ -171,7 +165,7 @@ abstract class AbstractRedisRegionFactory implements RegionFactory {
         return new RedisTimestampsRegion(accessStrategyFactory,
                                          redis,
                                          regionName,
-                                         properties,
+                                         JedisTool.loadCacheProperties(properties),
                                          timestamper);
     }
 

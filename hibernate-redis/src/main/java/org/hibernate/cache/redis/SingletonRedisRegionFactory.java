@@ -35,19 +35,13 @@ public class SingletonRedisRegionFactory extends AbstractRedisRegionFactory {
 
     private static final AtomicInteger referenceCount = new AtomicInteger();
 
-    public SingletonRedisRegionFactory(Properties properties) {
-        super(properties);
-        log.info("Creating SingletonRedisRegionFactory...");
-    }
-
     @Override
     public synchronized void start(Settings settings, Properties properties) throws CacheException {
         log.info("Starting SingletonRedisRegionFactory...");
 
         this.settings = settings;
-        this.properties = JedisTool.loadCacheProperties(properties);
         try {
-            initializeRegionFactory(settings, this.properties);
+            initializeRegionFactory(settings, JedisTool.loadCacheProperties(properties));
             referenceCount.incrementAndGet();
             log.info("Started SingletonRedisRegionFactory");
         } catch (Exception e) {

@@ -32,18 +32,13 @@ import java.util.Properties;
 @Slf4j
 public class RedisRegionFactory extends AbstractRedisRegionFactory {
 
-    public RedisRegionFactory(Properties properties) {
-        super(properties);
-    }
-
     @Override
     public void start(Settings settings, Properties properties) throws CacheException {
         log.info("Starting RedisRegionFactory...");
 
         this.settings = settings;
-        this.properties = JedisTool.loadCacheProperties(properties);
         try {
-            initializeRegionFactory(settings, this.properties);
+            initializeRegionFactory(settings, JedisTool.loadCacheProperties(properties));
             log.info("RedisRegionFactory is started");
         } catch (Exception e) {
             log.error("Fail to start RedisRegionFactory.", e);
