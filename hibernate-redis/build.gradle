@@ -11,6 +11,7 @@ javadoc {
 
 apply plugin: 'net.researchgate.release'
 apply plugin: 'com.bmuschko.nexus'
+apply plugin: 'io.codearte.nexus-staging'
 
 dependencies {
     compile(group: 'org.hibernate', name: 'hibernate-core', version:hibernateVersion) {
