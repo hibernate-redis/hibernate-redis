@@ -42,18 +42,11 @@ import java.util.concurrent.ConcurrentSkipListSet;
 abstract class AbstractRedisRegionFactory implements RegionFactory {
 
     /**
-     * The Hibernate system property specifying the location of the redis configuration file name.
-     * If not set, redis.xml will be looked for in the root of the classpath.
-     * If set to say redis-1.xml, redis-1.xml will be looked for in the root of the classpath.
-     */
-    public static final String IO_REDIS_CACHE_CONFIGURATION_RESOURCE_NAME = "io.redis.cache.configurationResourceName";
-
-    /**
      * Settings object for the Hibernate persistence unit.
      */
     protected Settings settings;
 
-    protected Properties props;
+    protected Properties properties;
 
     protected final RedisAccessStrategyFactory accessStrategyFactory = new RedisAccessStrategyFactoryImpl();
 
@@ -77,8 +70,8 @@ abstract class AbstractRedisRegionFactory implements RegionFactory {
      */
     protected static Thread expirationThread = null;
 
-    public AbstractRedisRegionFactory(Properties props) {
-        this.props = props;
+    public AbstractRedisRegionFactory(Properties properties) {
+        this.properties = properties;
     }
 
     /**
@@ -99,7 +92,7 @@ abstract class AbstractRedisRegionFactory implements RegionFactory {
         return true;
     }
 
-    protected void createJedisClientAndTimestamper(Settings settings, Properties properties) {
+    protected void initializeRegionFactory(Settings settings, Properties properties) {
         if (redis != null) {
             throw new IllegalStateException("Jedis client already initialized!");
         }
