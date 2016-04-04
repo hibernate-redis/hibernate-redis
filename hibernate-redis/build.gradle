@@ -13,6 +13,9 @@ apply plugin: 'net.researchgate.release'
 apply plugin: 'com.bmuschko.nexus'
 apply plugin: 'io.codearte.nexus-staging'
 
+// make sure the release plugin will uploadArchives before updating the version to the next snapshot
+afterReleaseBuild.dependsOn uploadArchives
+
 dependencies {
     compile(group: 'org.hibernate', name: 'hibernate-core', version:hibernateVersion) {
         exclude(module: 'jboss-logging')
