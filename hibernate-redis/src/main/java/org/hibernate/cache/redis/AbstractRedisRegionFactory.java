@@ -42,18 +42,9 @@ import java.util.concurrent.ConcurrentSkipListSet;
 abstract class AbstractRedisRegionFactory implements RegionFactory {
 
     /**
-     * The Hibernate system property specifying the location of the redis configuration file name.
-     * If not set, redis.xml will be looked for in the root of the classpath.
-     * If set to say redis-1.xml, redis-1.xml will be looked for in the root of the classpath.
-     */
-    public static final String IO_REDIS_CACHE_CONFIGURATION_RESOURCE_NAME = "io.redis.cache.configurationResourceName";
-
-    /**
      * Settings object for the Hibernate persistence unit.
      */
     protected Settings settings;
-
-    protected Properties props;
 
     protected final RedisAccessStrategyFactory accessStrategyFactory = new RedisAccessStrategyFactoryImpl();
 
@@ -77,10 +68,6 @@ abstract class AbstractRedisRegionFactory implements RegionFactory {
      */
     protected static Thread expirationThread = null;
 
-    public AbstractRedisRegionFactory(Properties props) {
-        this.props = props;
-    }
-
     /**
      * Whether to optimize for minimals puts or minimal gets.
      * <p/>
@@ -99,7 +86,7 @@ abstract class AbstractRedisRegionFactory implements RegionFactory {
         return true;
     }
 
-    protected void createJedisClientAndTimestamper(Settings settings, Properties properties) {
+    protected void initializeRegionFactory(Settings settings, Properties properties) {
         if (redis != null) {
             throw new IllegalStateException("Jedis client already initialized!");
         }
@@ -118,6 +105,10 @@ abstract class AbstractRedisRegionFactory implements RegionFactory {
         return timestamper.next();
     }
 
+    private Properties loadCacheProperties(Properties properties) {
+        return JedisTool.loadCacheProperties(properties);
+    }
+
     @Override
     public EntityRegion buildEntityRegion(String regionName,
                                           Properties properties,
@@ -128,7 +119,7 @@ abstract class AbstractRedisRegionFactory implements RegionFactory {
                                      regionName,
                                      settings,
                                      metadata,
-                                     properties,
+                                     loadCacheProperties(properties),
                                      timestamper);
     }
 
@@ -142,7 +133,7 @@ abstract class AbstractRedisRegionFactory implements RegionFactory {
                                         regionName,
                                         settings,
                                         metadata,
-                                        properties,
+                                        loadCacheProperties(properties),
                                         timestamper);
     }
 
@@ -156,7 +147,7 @@ abstract class AbstractRedisRegionFactory implements RegionFactory {
                                          regionName,
                                          settings,
                                          metadata,
-                                         properties,
+                                         loadCacheProperties(properties),
                                          timestamper);
     }
 
@@ -167,7 +158,7 @@ abstract class AbstractRedisRegionFactory implements RegionFactory {
         return new RedisQueryResultsRegion(accessStrategyFactory,
                                            redis,
                                            regionName,
-                                           properties,
+                                           loadCacheProperties(properties),
                                            timestamper);
     }
 
@@ -178,7 +169,7 @@ abstract class AbstractRedisRegionFactory implements RegionFactory {
         return new RedisTimestampsRegion(accessStrategyFactory,
                                          redis,
                                          regionName,
-                                         properties,
+                                         loadCacheProperties(properties),
                                          timestamper);
     }
 

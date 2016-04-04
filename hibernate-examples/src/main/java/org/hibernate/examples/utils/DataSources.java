@@ -74,10 +74,19 @@ public class DataSources {
 
         // MySQL 인 경우 성능을 위해 아래 설정을 사용합니다.
         if (DataConst.DRIVER_CLASS_MYSQL.equals(driverClass)) {
-            config.addDataSourceProperty("cachePrepStmts", "true");
-            config.addDataSourceProperty("prepStmtCacheSize", "250");
-            config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
-            config.addDataSourceProperty("useServerPrepStmts", "true");
+            config.addDataSourceProperty("cachePrepStmts", true);
+            config.addDataSourceProperty("prepStmtCacheSize", 250);
+            config.addDataSourceProperty("prepStmtCacheSqlLimit", 2048);
+            /**
+             * Due to a number of issues with the use of server-side prepared statements, Connector/J 5.0.5
+             * has disabled their use by default. The disabling of server-side prepared statements does not
+             * affect the operation of the connector in any way.
+             */
+            config.addDataSourceProperty("useServerPrepStmts", false);
+            /**
+             * Disable rewriteBatchedStatements in case the batch contains a bad query (all queries after the bad query will not be executed).
+             */
+            config.addDataSourceProperty("rewriteBatchedStatements", false);
         }
 
         if (props != null) {
@@ -91,13 +100,7 @@ public class DataSources {
         config.setInitializationFailFast(true);
         config.setConnectionTestQuery("SELECT 1");
 
-        return new HikariDataSource(config) {
-            // multi-pool support was removed from Hikari
-            @Override
-            public Connection getConnection(String username, String password) throws SQLException {
-                return getConnection();
-            }
-        };
+        return new HikariDataSource(config);
     }
 
     /**
