@@ -33,22 +33,16 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Slf4j
 public class SingletonRedisRegionFactory extends AbstractRedisRegionFactory {
 
-    private static final AtomicInteger ReferenceCount = new AtomicInteger();
-
-    public SingletonRedisRegionFactory(Properties props) {
-        super(props);
-        log.info("Creating SingletonRedisRegionFactory instance.");
-    }
+    private static final AtomicInteger referenceCount = new AtomicInteger();
 
     @Override
     public synchronized void start(Settings settings, Properties properties) throws CacheException {
         log.info("Starting SingletonRedisRegionFactory...");
 
         this.settings = settings;
-        this.props = JedisTool.loadCacheProperties(properties);
         try {
-            createJedisClientAndTimestamper(settings, properties);
-            ReferenceCount.incrementAndGet();
+            initializeRegionFactory(settings, JedisTool.loadCacheProperties(properties));
+            referenceCount.incrementAndGet();
             log.info("Started SingletonRedisRegionFactory");
         } catch (Exception e) {
             throw new CacheException(e);
@@ -59,11 +53,12 @@ public class SingletonRedisRegionFactory extends AbstractRedisRegionFactory {
     public synchronized void stop() {
         log.debug("Stopping SingletonRedisRegionFactory...");
 
-        if (ReferenceCount.decrementAndGet() == 0) {
+        if (referenceCount.decrementAndGet() == 0) {
             try {
                 destroy();
                 log.info("Stopped SingletonRedisRegionFactory");
-            } catch (Exception ignored) { }
+            } catch (Exception ignored) {
+            }
         }
     }
 
