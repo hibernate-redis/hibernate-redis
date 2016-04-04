@@ -105,6 +105,10 @@ abstract class AbstractRedisRegionFactory implements RegionFactory {
         return timestamper.next();
     }
 
+    private Properties loadCacheProperties(Properties properties) {
+        return JedisTool.loadCacheProperties(properties);
+    }
+
     @Override
     public EntityRegion buildEntityRegion(String regionName,
                                           Properties properties,
@@ -115,7 +119,7 @@ abstract class AbstractRedisRegionFactory implements RegionFactory {
                                      regionName,
                                      settings,
                                      metadata,
-                                     JedisTool.loadCacheProperties(properties),
+                                     loadCacheProperties(properties),
                                      timestamper);
     }
 
@@ -129,7 +133,7 @@ abstract class AbstractRedisRegionFactory implements RegionFactory {
                                         regionName,
                                         settings,
                                         metadata,
-                                        JedisTool.loadCacheProperties(properties),
+                                        loadCacheProperties(properties),
                                         timestamper);
     }
 
@@ -143,7 +147,7 @@ abstract class AbstractRedisRegionFactory implements RegionFactory {
                                          regionName,
                                          settings,
                                          metadata,
-                                         JedisTool.loadCacheProperties(properties),
+                                         loadCacheProperties(properties),
                                          timestamper);
     }
 
@@ -154,7 +158,7 @@ abstract class AbstractRedisRegionFactory implements RegionFactory {
         return new RedisQueryResultsRegion(accessStrategyFactory,
                                            redis,
                                            regionName,
-                                           JedisTool.loadCacheProperties(properties),
+                                           loadCacheProperties(properties),
                                            timestamper);
     }
 
@@ -165,7 +169,7 @@ abstract class AbstractRedisRegionFactory implements RegionFactory {
         return new RedisTimestampsRegion(accessStrategyFactory,
                                          redis,
                                          regionName,
-                                         JedisTool.loadCacheProperties(properties),
+                                         loadCacheProperties(properties),
                                          timestamper);
     }
 
