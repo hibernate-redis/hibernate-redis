@@ -1,6 +1,5 @@
 package org.hibernate.test.cache.redis;
 
-import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.cache.redis.util.HibernateCacheUtil;
@@ -23,7 +22,6 @@ import static org.fest.assertions.Assertions.assertThat;
  * @author sunghyouk.bae@gmail.com
  * @since 13. 4. 6. 오전 12:51
  */
-@Slf4j
 public abstract class RedisTest extends BaseCoreFunctionalTestCase {
 
 //    @Rule

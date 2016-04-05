@@ -1,10 +1,11 @@
 package org.hibernate.test.jpa;
 
-import lombok.extern.slf4j.Slf4j;
 import org.hibernate.cache.redis.SingletonRedisRegionFactory;
 import org.hibernate.cfg.Environment;
 import org.hibernate.test.domain.Account;
 import org.hibernate.test.jpa.repository.EventRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
@@ -31,11 +32,12 @@ import static org.springframework.util.StringUtils.arrayToCommaDelimitedString;
  * @author 배성혁 sunghyouk.bae@gmail.com
  * @since 2013. 12. 21. 오후 5:51
  */
-@Slf4j
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackageClasses = { EventRepository.class })
 public class JpaRedisConfiguration {
+
+    private static final Logger log = LoggerFactory.getLogger(JpaRedisConfiguration.class);
 
     /**
      * JPA EntityManager가 사용할 Database 명

@@ -16,7 +16,6 @@
 
 package org.hibernate.cache.redis.strategy;
 
-import lombok.extern.slf4j.Slf4j;
 import org.hibernate.cache.redis.regions.RedisCollectionRegion;
 import org.hibernate.cache.redis.regions.RedisEntityRegion;
 import org.hibernate.cache.redis.regions.RedisNaturalIdRegion;
@@ -24,6 +23,8 @@ import org.hibernate.cache.spi.access.AccessType;
 import org.hibernate.cache.spi.access.CollectionRegionAccessStrategy;
 import org.hibernate.cache.spi.access.EntityRegionAccessStrategy;
 import org.hibernate.cache.spi.access.NaturalIdRegionAccessStrategy;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * org.hibernate.cache.redis.strategy.RedisAccessStrategyFactoryImpl
@@ -31,8 +32,9 @@ import org.hibernate.cache.spi.access.NaturalIdRegionAccessStrategy;
  * @author sunghyouk.bae@gmail.com
  * @since 13. 4. 6. 오전 12:03
  */
-@Slf4j
 public class RedisAccessStrategyFactoryImpl implements RedisAccessStrategyFactory {
+
+    private static final Logger log = LoggerFactory.getLogger(RedisAccessStrategyFactoryImpl.class);
 
     @Override
     public EntityRegionAccessStrategy createEntityRegionAccessStrategy(RedisEntityRegion entityRegion,

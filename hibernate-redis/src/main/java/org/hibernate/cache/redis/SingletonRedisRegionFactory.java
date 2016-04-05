@@ -16,10 +16,11 @@
 
 package org.hibernate.cache.redis;
 
-import lombok.extern.slf4j.Slf4j;
 import org.hibernate.cache.CacheException;
 import org.hibernate.cache.redis.util.JedisTool;
 import org.hibernate.cfg.Settings;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Properties;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -30,10 +31,10 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @author sunghyouk.bae@gmail.com
  * @since 13. 4. 6. 오전 12:31
  */
-@Slf4j
 public class SingletonRedisRegionFactory extends AbstractRedisRegionFactory {
 
     private static final AtomicInteger referenceCount = new AtomicInteger();
+    private static final Logger log = LoggerFactory.getLogger(SingletonRedisRegionFactory.class);
 
     @Override
     public synchronized void start(Settings settings, Properties properties) throws CacheException {

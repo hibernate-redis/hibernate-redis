@@ -1,16 +1,10 @@
 package org.hibernate.test.domain;
 
-import lombok.Getter;
-import lombok.Setter;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 /**
  * org.hibernate.test.domain.Person
@@ -20,8 +14,6 @@ import java.util.Set;
  */
 @Entity
 @org.hibernate.annotations.Cache(region = "common", usage = CacheConcurrencyStrategy.READ_WRITE)
-@Getter
-@Setter
 public class Person implements Serializable {
 
     private static final long serialVersionUID = -8245742950718661800L;
@@ -65,5 +57,85 @@ public class Person implements Serializable {
         return (id != null)
                 ? id.hashCode()
                 : Objects.hash(firstname, lastname, weight, height, age);
+    }
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public int getAge() {
+        return this.age;
+    }
+
+    public String getFirstname() {
+        return this.firstname;
+    }
+
+    public String getLastname() {
+        return this.lastname;
+    }
+
+    public Float getWeight() {
+        return this.weight;
+    }
+
+    public Double getHeight() {
+        return this.height;
+    }
+
+    public List<Event> getEvents() {
+        return this.events;
+    }
+
+    public Set<String> getEmailAddresses() {
+        return this.emailAddresses;
+    }
+
+    public Set<PhoneNumber> getPhoneNumbers() {
+        return this.phoneNumbers;
+    }
+
+    public List<String> getTailsmans() {
+        return this.tailsmans;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public void setWeight(Float weight) {
+        this.weight = weight;
+    }
+
+    public void setHeight(Double height) {
+        this.height = height;
+    }
+
+    public void setEvents(List<Event> events) {
+        this.events = events;
+    }
+
+    public void setEmailAddresses(Set<String> emailAddresses) {
+        this.emailAddresses = emailAddresses;
+    }
+
+    public void setPhoneNumbers(Set<PhoneNumber> phoneNumbers) {
+        this.phoneNumbers = phoneNumbers;
+    }
+
+    public void setTailsmans(List<String> tailsmans) {
+        this.tailsmans = tailsmans;
     }
 }

@@ -16,7 +16,8 @@
 
 package org.hibernate.test.cache;
 
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
@@ -28,8 +29,9 @@ import java.util.concurrent.Executors;
  * @author 배성혁 sunghyouk.bae@gmail.com
  * @since 13. 5. 1. 오후 12:33
  */
-@Slf4j
 public abstract class MultiThreadTestTool {
+
+    private static final Logger log = LoggerFactory.getLogger(MultiThreadTestTool.class);
 
     private static ExecutorService newExecutorService() {
         return Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());

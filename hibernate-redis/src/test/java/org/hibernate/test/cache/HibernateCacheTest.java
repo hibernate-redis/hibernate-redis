@@ -1,6 +1,5 @@
 package org.hibernate.test.cache;
 
-import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -13,6 +12,8 @@ import org.hibernate.test.domain.Item;
 import org.hibernate.test.domain.Person;
 import org.junit.Before;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
@@ -25,12 +26,8 @@ import static org.fest.assertions.Assertions.assertThat;
  * @author sunghyouk.bae@gmail.com
  * @since 13. 4. 6. 오전 12:51
  */
-@Slf4j
 public class HibernateCacheTest extends AbstractHibernateTest {
-
-//    @Rule
-//    public TestRule benchmarkRun = new BenchmarkRule();
-
+    private static final Logger log = LoggerFactory.getLogger(HibernateCacheTest.class);
 
     @Before
     public void before() {
