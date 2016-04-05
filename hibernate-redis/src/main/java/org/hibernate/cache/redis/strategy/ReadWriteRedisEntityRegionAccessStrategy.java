@@ -16,7 +16,6 @@
 
 package org.hibernate.cache.redis.strategy;
 
-import lombok.extern.slf4j.Slf4j;
 import org.hibernate.cache.redis.regions.RedisEntityRegion;
 import org.hibernate.cache.spi.EntityRegion;
 import org.hibernate.cache.spi.access.EntityRegionAccessStrategy;
@@ -29,7 +28,6 @@ import org.hibernate.cfg.Settings;
  * @author sunghyouk.bae@gmail.com
  * @since 13. 4. 5. 오후 11:13
  */
-@Slf4j
 public class ReadWriteRedisEntityRegionAccessStrategy
         extends AbstractReadWriteRedisAccessStrategy<RedisEntityRegion>
         implements EntityRegionAccessStrategy {

@@ -1,7 +1,7 @@
 package org.hibernate.test.cache;
 
-import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
+import org.slf4j.Logger;
 
 import java.io.InputStream;
 import java.util.Properties;
@@ -14,8 +14,9 @@ import static org.fest.assertions.Assertions.assertThat;
  * @author 배성혁 sunghyouk.bae@gmail.com
  * @since 2013. 11. 16. 오후 3:38
  */
-@Slf4j
 public class PropertiesTest {
+
+    private static final Logger log = org.slf4j.LoggerFactory.getLogger(PropertiesTest.class);
 
     @Test
     public void loadProperties() {

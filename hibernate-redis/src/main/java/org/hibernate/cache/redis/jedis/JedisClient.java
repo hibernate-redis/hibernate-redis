@@ -16,13 +16,12 @@
 
 package org.hibernate.cache.redis.jedis;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
 import org.hibernate.cache.redis.serializer.RedisSerializer;
 import org.hibernate.cache.redis.serializer.SerializationTool;
 import org.hibernate.cache.redis.serializer.SnappyRedisSerializer;
 import org.hibernate.cache.redis.serializer.StringRedisSerializer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.Pipeline;
@@ -40,18 +39,15 @@ import java.util.concurrent.TimeUnit;
  * @author 배성혁 ( sunghyouk.bae@gmail.com )
  * @since 13. 4. 9 오후 10:20
  */
-@Slf4j
 public class JedisClient {
 
     public static final int DEFAULT_EXPIRY_IN_SECONDS = 120;
     public static final String DEFAULT_REGION_NAME = "hibernate";
     private static final int MAX_TIMESTAMP_UPDATE_ATTEMPTS = 5;
+    private static final Logger log = LoggerFactory.getLogger(JedisClient.class);
 
-    @Getter
     private final Pool<Jedis> jedisPool;
 
-    @Getter
-    @Setter
     private int expiryInSeconds;
 
     private final StringRedisSerializer regionSerializer = new StringRedisSerializer();
@@ -76,6 +72,18 @@ public class JedisClient {
         log.debug("JedisClient created. jedisPool=[{}], expiryInSeconds=[{}]", jedisPool, expiryInSeconds);
 
         this.jedisPool = jedisPool;
+        this.expiryInSeconds = expiryInSeconds;
+    }
+
+    public Pool<Jedis> getJedisPool() {
+        return this.jedisPool;
+    }
+
+    public int getExpiryInSeconds() {
+        return this.expiryInSeconds;
+    }
+
+    public void setExpiryInSeconds(int expiryInSeconds) {
         this.expiryInSeconds = expiryInSeconds;
     }
 

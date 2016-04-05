@@ -1,7 +1,5 @@
 package org.hibernate.test.domain;
 
-import lombok.Getter;
-import lombok.Setter;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.Entity;
@@ -17,8 +15,6 @@ import java.io.Serializable;
  */
 @Entity
 @org.hibernate.annotations.Cache(region = "common", usage = CacheConcurrencyStrategy.READ_WRITE)
-@Getter
-@Setter
 public class Item implements Serializable {
 
     @Id
@@ -30,4 +26,28 @@ public class Item implements Serializable {
     private String description;
 
     private static final long serialVersionUID = 5597936606448211014L;
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }
