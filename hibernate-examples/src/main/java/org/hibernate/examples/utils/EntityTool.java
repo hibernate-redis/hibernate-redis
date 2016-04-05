@@ -1,6 +1,5 @@
 package org.hibernate.examples.utils;
 
-import lombok.extern.slf4j.Slf4j;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.examples.hibernate.repository.HibernateDao;
@@ -18,7 +17,6 @@ import java.util.List;
  * @author 배성혁 sunghyouk.bae@gmail.com
  * @since 2013. 11. 28. 오후 2:09
  */
-@Slf4j
 public class EntityTool {
     private EntityTool() {}
 

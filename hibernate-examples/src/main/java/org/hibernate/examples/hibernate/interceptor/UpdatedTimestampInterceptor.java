@@ -1,6 +1,5 @@
 package org.hibernate.examples.hibernate.interceptor;
 
-import lombok.extern.slf4j.Slf4j;
 import org.hibernate.EmptyInterceptor;
 import org.hibernate.examples.model.UpdatedTimestampEntity;
 
@@ -12,7 +11,6 @@ import java.util.Iterator;
  * @author 배성혁 sunghyouk.bae@gmail.com
  * @since 2013. 11. 28. 오후 1:50
  */
-@Slf4j
 public class UpdatedTimestampInterceptor extends EmptyInterceptor {
 
     /**

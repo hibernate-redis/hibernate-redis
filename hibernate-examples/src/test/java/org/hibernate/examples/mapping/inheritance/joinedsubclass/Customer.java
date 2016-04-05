@@ -1,7 +1,5 @@
 package org.hibernate.examples.mapping.inheritance.joinedsubclass;
 
-import lombok.Getter;
-import lombok.Setter;
 import org.hibernate.annotations.*;
 import org.hibernate.examples.utils.HashTool;
 import org.hibernate.examples.utils.ToStringHelper;
@@ -21,8 +19,6 @@ import javax.persistence.ManyToOne;
 @org.hibernate.annotations.Cache(region = "example", usage = CacheConcurrencyStrategy.READ_WRITE)
 @DynamicInsert
 @DynamicUpdate
-@Getter
-@Setter
 public class Customer extends Person {
 
     private String mobile;
@@ -44,4 +40,20 @@ public class Customer extends Person {
     }
 
     private static final long serialVersionUID = 8943550440998265187L;
+
+    public String getMobile() {
+        return this.mobile;
+    }
+
+    public Employee getContactEmployee() {
+        return this.contactEmployee;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    public void setContactEmployee(Employee contactEmployee) {
+        this.contactEmployee = contactEmployee;
+    }
 }

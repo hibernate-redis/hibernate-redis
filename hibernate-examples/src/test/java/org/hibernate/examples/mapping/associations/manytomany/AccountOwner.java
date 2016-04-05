@@ -1,8 +1,5 @@
 package org.hibernate.examples.mapping.associations.manytomany;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.examples.model.AbstractHibernateEntity;
 import org.hibernate.examples.utils.HashTool;
@@ -20,14 +17,11 @@ import java.util.Set;
  */
 @Entity
 @org.hibernate.annotations.Cache(region = "example", usage = CacheConcurrencyStrategy.READ_WRITE)
-@Getter
-@Setter
 public class AccountOwner extends AbstractHibernateEntity<Long> {
 
     @Id
     @GeneratedValue
     @Column(name = "ownerId")
-    @Setter(AccessLevel.PROTECTED)
     private Long id;
 
     /**
@@ -58,4 +52,28 @@ public class AccountOwner extends AbstractHibernateEntity<Long> {
     }
 
     private static final long serialVersionUID = 6041020627741330687L;
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public String getSSN() {
+        return this.SSN;
+    }
+
+    public Set<BankAccount> getBankAccounts() {
+        return this.bankAccounts;
+    }
+
+    public void setSSN(String SSN) {
+        this.SSN = SSN;
+    }
+
+    public void setBankAccounts(Set<BankAccount> bankAccounts) {
+        this.bankAccounts = bankAccounts;
+    }
+
+    protected void setId(Long id) {
+        this.id = id;
+    }
 }

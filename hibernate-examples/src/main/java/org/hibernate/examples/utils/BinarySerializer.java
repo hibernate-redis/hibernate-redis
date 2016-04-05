@@ -1,8 +1,7 @@
 package org.hibernate.examples.utils;
 
-import lombok.Cleanup;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ArrayUtils;
+import org.slf4j.Logger;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -15,17 +14,18 @@ import java.io.ObjectOutputStream;
  * @author 배성혁 sunghyouk.bae@gmail.com
  * @since 2013. 11. 28. 오후 5:34
  */
-@Slf4j
 public class BinarySerializer {
+
+    private static final Logger log = org.slf4j.LoggerFactory.getLogger(BinarySerializer.class);
 
     public byte[] serialize(Object graph) {
         if (graph == null)
             return ArrayUtils.EMPTY_BYTE_ARRAY;
 
-        try {
-            @Cleanup ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            @Cleanup ObjectOutputStream oos = new ObjectOutputStream(bos);
-
+        try (
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            ObjectOutputStream oos = new ObjectOutputStream(bos);
+        ){
             oos.writeObject(graph);
             oos.flush();
 
@@ -41,9 +41,10 @@ public class BinarySerializer {
         if (ArrayUtils.isEmpty(bytes))
             return (T) null;
 
-        try {
-            @Cleanup ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
-            @Cleanup ObjectInputStream ois = new ObjectInputStream(bis);
+        try (
+            ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
+            ObjectInputStream ois = new ObjectInputStream(bis);
+        ) {
             return (T) ois.readObject();
         } catch (Exception e) {
             log.error("객체 역직렬화에 실패했습니다.", e);

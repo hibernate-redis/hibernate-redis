@@ -1,8 +1,5 @@
 package org.hibernate.examples.mapping.associations.onetoone.primarykey;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -22,8 +19,6 @@ import javax.persistence.*;
 @org.hibernate.annotations.Cache(region = "example", usage = CacheConcurrencyStrategy.READ_WRITE)
 @DynamicInsert
 @DynamicUpdate
-@Getter
-@Setter
 public class OneToOneBiography extends AbstractHibernateEntity<Long> {
 
     protected OneToOneBiography() {}
@@ -34,7 +29,6 @@ public class OneToOneBiography extends AbstractHibernateEntity<Long> {
 
     @Id
     @Column(name = "authorId")
-    @Setter(AccessLevel.PROTECTED)
     private Long id;
 
     @MapsId
@@ -57,4 +51,28 @@ public class OneToOneBiography extends AbstractHibernateEntity<Long> {
     }
 
     private static final long serialVersionUID = 1698356846423798478L;
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public OneToOneAuthor getAuthor() {
+        return this.author;
+    }
+
+    public String getInformation() {
+        return this.information;
+    }
+
+    public void setAuthor(OneToOneAuthor author) {
+        this.author = author;
+    }
+
+    public void setInformation(String information) {
+        this.information = information;
+    }
+
+    protected void setId(Long id) {
+        this.id = id;
+    }
 }

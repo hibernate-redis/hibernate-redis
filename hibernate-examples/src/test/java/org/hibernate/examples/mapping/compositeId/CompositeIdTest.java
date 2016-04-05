@@ -1,6 +1,5 @@
 package org.hibernate.examples.mapping.compositeId;
 
-import lombok.extern.slf4j.Slf4j;
 import org.hibernate.examples.AbstractJpaTest;
 import org.hibernate.examples.mapping.compositeId.embeddable.EmbeddableCarIdentifier;
 import org.hibernate.examples.mapping.compositeId.embeddable.EmbeddableIdCar;
@@ -23,7 +22,6 @@ import static org.fest.assertions.Assertions.assertThat;
  * @author 배성혁 sunghyouk.bae@gmail.com
  * @since 2013. 11. 29. 오후 4:38
  */
-@Slf4j
 @Transactional
 public class CompositeIdTest extends AbstractJpaTest {
 

@@ -1,6 +1,5 @@
 package org.hibernate.examples.hibernate.repository;
 
-import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Session;
 import org.hibernate.examples.AbstractHibernateTest;
 import org.hibernate.examples.mapping.Employee;
@@ -18,7 +17,6 @@ import static org.fest.assertions.Assertions.assertThat;
  * @author 배성혁 sunghyouk.bae@gmail.com
  * @since 2013. 11. 28. 오전 9:43
  */
-@Slf4j
 @Transactional
 public class HibernateDaoTest extends AbstractHibernateTest {
 

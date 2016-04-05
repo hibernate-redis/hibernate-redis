@@ -1,7 +1,5 @@
 package org.hibernate.examples.hibernate.config;
 
-import lombok.Getter;
-import lombok.Setter;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.examples.model.AbstractHibernateEntity;
 import org.hibernate.examples.utils.HashTool;
@@ -20,8 +18,6 @@ import javax.persistence.Id;
  */
 @Entity
 @org.hibernate.annotations.Cache(region = "example", usage = CacheConcurrencyStrategy.READ_WRITE)
-@Getter
-@Setter
 public class Account extends AbstractHibernateEntity<Long> {
 
     @Id
@@ -46,4 +42,28 @@ public class Account extends AbstractHibernateEntity<Long> {
     }
 
     private static final long serialVersionUID = 8633146002860863953L;
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public double getCashBalance() {
+        return this.cashBalance;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setCashBalance(double cashBalance) {
+        this.cashBalance = cashBalance;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

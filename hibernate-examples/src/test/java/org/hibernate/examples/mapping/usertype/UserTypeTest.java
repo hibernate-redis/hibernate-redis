@@ -1,6 +1,5 @@
 package org.hibernate.examples.mapping.usertype;
 
-import lombok.extern.slf4j.Slf4j;
 import org.hibernate.examples.AbstractJpaTest;
 import org.hibernate.examples.model.DateTimeRange;
 import org.joda.time.DateTime;
@@ -18,7 +17,6 @@ import static org.fest.assertions.Assertions.assertThat;
  * @author 배성혁 sunghyouk.bae@gmail.com
  * @since 2013. 12. 3. 오후 9:15
  */
-@Slf4j
 @Transactional
 public class UserTypeTest extends AbstractJpaTest {
 

@@ -1,7 +1,5 @@
 package org.hibernate.examples.model;
 
-import lombok.Getter;
-import lombok.Setter;
 import org.hibernate.examples.utils.HashTool;
 import org.hibernate.examples.utils.ToStringHelper;
 
@@ -15,8 +13,6 @@ import javax.persistence.Embeddable;
  * @since 2013. 11. 27. 오후 4:30
  */
 @Embeddable
-@Getter
-@Setter
 public class TreeNodePosition extends AbstractValueObject {
 
     @Column(name = "treeLevel")
@@ -54,4 +50,20 @@ public class TreeNodePosition extends AbstractValueObject {
     }
 
     private static final long serialVersionUID = -5552929284039433528L;
+
+    public Integer getLevel() {
+        return this.level;
+    }
+
+    public Integer getOrder() {
+        return this.order;
+    }
+
+    public void setLevel(Integer level) {
+        this.level = level;
+    }
+
+    public void setOrder(Integer order) {
+        this.order = order;
+    }
 }

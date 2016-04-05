@@ -1,7 +1,5 @@
 package org.hibernate.examples.mapping.compositeId.idclass;
 
-import lombok.Getter;
-import lombok.Setter;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -24,8 +22,6 @@ import javax.persistence.IdClass;
 @IdClass(CarIdentifier.class)
 @DynamicInsert
 @DynamicUpdate
-@Getter
-@Setter
 public class IdClassCar extends AbstractValueObject {
 
     @Id
@@ -50,4 +46,28 @@ public class IdClassCar extends AbstractValueObject {
     }
 
     private static final long serialVersionUID = -2144857053612105427L;
+
+    public String getBrand() {
+        return this.brand;
+    }
+
+    public int getYear() {
+        return this.year;
+    }
+
+    public String getSerialNo() {
+        return this.serialNo;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public void setSerialNo(String serialNo) {
+        this.serialNo = serialNo;
+    }
 }

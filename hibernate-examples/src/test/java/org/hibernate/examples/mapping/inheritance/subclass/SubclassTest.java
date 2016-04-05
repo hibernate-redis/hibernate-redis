@@ -1,6 +1,5 @@
 package org.hibernate.examples.mapping.inheritance.subclass;
 
-import lombok.extern.slf4j.Slf4j;
 import org.hibernate.examples.AbstractJpaTest;
 import org.junit.Test;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,7 +15,6 @@ import static org.fest.assertions.Assertions.assertThat;
  * @author 배성혁 sunghyouk.bae@gmail.com
  * @since 2013. 11. 30. 오후 12:53
  */
-@Slf4j
 @Transactional
 public class SubclassTest extends AbstractJpaTest {
 

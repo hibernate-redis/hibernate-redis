@@ -1,6 +1,5 @@
 package org.hibernate.examples.hibernate.config;
 
-import lombok.extern.slf4j.Slf4j;
 import org.hibernate.ConnectionReleaseMode;
 import org.hibernate.Interceptor;
 import org.hibernate.SessionFactory;
@@ -10,6 +9,7 @@ import org.hibernate.examples.hibernate.interceptor.PersistentObjectInterceptor;
 import org.hibernate.examples.hibernate.repository.HibernateDao;
 import org.hibernate.examples.hibernate.repository.HibernateDaoImpl;
 import org.hibernate.examples.utils.DataSources;
+import org.slf4j.Logger;
 import org.springframework.context.annotation.Bean;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.orm.hibernate4.HibernateExceptionTranslator;
@@ -27,8 +27,9 @@ import static org.springframework.util.StringUtils.arrayToCommaDelimitedString;
  * @author 배성혁 sunghyouk.bae@gmail.com
  * @since 2013. 11. 28. 오전 9:54
  */
-@Slf4j
 public abstract class AbstractHibernateConfiguration {
+
+    private static final Logger log = org.slf4j.LoggerFactory.getLogger(AbstractHibernateConfiguration.class);
 
     public String getDatabaseName() {
         return "hibernate";

@@ -1,8 +1,5 @@
 package org.hibernate.examples.mapping.embeddable;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -26,8 +23,6 @@ import javax.persistence.*;
 @org.hibernate.annotations.Cache(region = "example", usage = CacheConcurrencyStrategy.READ_WRITE)
 @DynamicInsert
 @DynamicUpdate
-@Getter
-@Setter
 class User extends AbstractHibernateEntity<Long> {
 
     protected User() {}
@@ -40,7 +35,6 @@ class User extends AbstractHibernateEntity<Long> {
     @Id
     @GeneratedValue
     @Column(name = "userId")
-    @Setter(AccessLevel.PROTECTED)
     private Long id;
 
     private String firstname;
@@ -100,4 +94,84 @@ class User extends AbstractHibernateEntity<Long> {
     }
 
     private static final long serialVersionUID = -5638782007660883773L;
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public String getFirstname() {
+        return this.firstname;
+    }
+
+    public String getLastname() {
+        return this.lastname;
+    }
+
+    public String getUsername() {
+        return this.username;
+    }
+
+    public String getPassword() {
+        return this.password;
+    }
+
+    public String getEmail() {
+        return this.email;
+    }
+
+    public Boolean getActive() {
+        return this.active;
+    }
+
+    public String getExAttrs() {
+        return this.exAttrs;
+    }
+
+    public Address getHomeAddress() {
+        return this.homeAddress;
+    }
+
+    public Address getOfficeAddress() {
+        return this.officeAddress;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
+
+    public void setExAttrs(String exAttrs) {
+        this.exAttrs = exAttrs;
+    }
+
+    public void setHomeAddress(Address homeAddress) {
+        this.homeAddress = homeAddress;
+    }
+
+    public void setOfficeAddress(Address officeAddress) {
+        this.officeAddress = officeAddress;
+    }
+
+    protected void setId(Long id) {
+        this.id = id;
+    }
 }

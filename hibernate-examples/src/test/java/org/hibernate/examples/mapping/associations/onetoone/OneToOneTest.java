@@ -1,6 +1,5 @@
 package org.hibernate.examples.mapping.associations.onetoone;
 
-import lombok.extern.slf4j.Slf4j;
 import org.hibernate.examples.AbstractJpaTest;
 import org.hibernate.examples.mapping.associations.onetoone.bidirectionalManyToOne.Husband;
 import org.hibernate.examples.mapping.associations.onetoone.bidirectionalManyToOne.Wife;
@@ -25,7 +24,6 @@ import static org.fest.assertions.Assertions.assertThat;
  * @author 배성혁 sunghyouk.bae@gmail.com
  * @since 2013. 11. 29. 오후 2:48
  */
-@Slf4j
 @Transactional
 public class OneToOneTest extends AbstractJpaTest {
 
@@ -104,8 +102,6 @@ public class OneToOneTest extends AbstractJpaTest {
         em.persist(wheel);
         em.flush();
         em.clear();
-
-        log.debug("Wheel=[{}]", wheel);
 
         wheel = em.find(Wheel.class, wheel.getId());
         assertThat(wheel).isNotNull();

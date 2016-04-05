@@ -1,7 +1,5 @@
 package org.hibernate.examples.mapping.inheritance.unionsubclass;
 
-import lombok.Getter;
-import lombok.Setter;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -21,8 +19,6 @@ import javax.persistence.Entity;
 @org.hibernate.annotations.Cache(region = "example", usage = CacheConcurrencyStrategy.READ_WRITE)
 @DynamicInsert
 @DynamicUpdate
-@Getter
-@Setter
 public class BankAccount extends AbstractBilling {
 
     @Column(nullable = false)
@@ -47,4 +43,28 @@ public class BankAccount extends AbstractBilling {
     }
 
     private static final long serialVersionUID = 120306592391268140L;
+
+    public String getAccount() {
+        return this.account;
+    }
+
+    public String getBankname() {
+        return this.bankname;
+    }
+
+    public String getSwift() {
+        return this.swift;
+    }
+
+    public void setAccount(String account) {
+        this.account = account;
+    }
+
+    public void setBankname(String bankname) {
+        this.bankname = bankname;
+    }
+
+    public void setSwift(String swift) {
+        this.swift = swift;
+    }
 }

@@ -1,7 +1,5 @@
 package org.hibernate.examples.mapping.associations.onetomany.map;
 
-import lombok.Getter;
-import lombok.Setter;
 import org.hibernate.examples.model.AbstractValueObject;
 import org.hibernate.examples.utils.HashTool;
 import org.hibernate.examples.utils.ToStringHelper;
@@ -15,8 +13,6 @@ import javax.persistence.Embeddable;
  * @since 2013. 11. 29. 오후 1:25
  */
 @Embeddable
-@Getter
-@Setter
 public class OneToManyCarOption extends AbstractValueObject {
 
     public OneToManyCarOption() {}
@@ -43,4 +39,20 @@ public class OneToManyCarOption extends AbstractValueObject {
     }
 
     private static final long serialVersionUID = -4017716295243845509L;
+
+    public String getName() {
+        return this.name;
+    }
+
+    public Integer getValue() {
+        return this.value;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setValue(Integer value) {
+        this.value = value;
+    }
 }
