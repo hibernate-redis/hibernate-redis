@@ -1,7 +1,5 @@
 package org.hibernate.examples.mapping.embeddable;
 
-import lombok.Getter;
-import lombok.Setter;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.examples.model.AbstractValueObject;
@@ -19,8 +17,6 @@ import javax.persistence.Embeddable;
 @Embeddable
 @DynamicInsert
 @DynamicUpdate
-@Getter
-@Setter
 public class Address extends AbstractValueObject {
 
     private String street;
@@ -43,4 +39,28 @@ public class Address extends AbstractValueObject {
     }
 
     private static final long serialVersionUID = 526892402316852929L;
+
+    public String getStreet() {
+        return this.street;
+    }
+
+    public String getZipcode() {
+        return this.zipcode;
+    }
+
+    public String getCity() {
+        return this.city;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public void setZipcode(String zipcode) {
+        this.zipcode = zipcode;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
 }

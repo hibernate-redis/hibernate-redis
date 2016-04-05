@@ -1,8 +1,5 @@
 package org.hibernate.examples.mapping.inheritance.joinedsubclass;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -24,14 +21,11 @@ import javax.persistence.*;
 @Inheritance(strategy = InheritanceType.JOINED)
 @DynamicInsert
 @DynamicUpdate
-@Getter
-@Setter
 public abstract class Person extends AbstractHibernateEntity<Long> {
 
     @Id
     @GeneratedValue
     @Column(name = "personId")
-    @Setter(AccessLevel.PROTECTED)
     private Long id;
 
     @Column(name = "personName", nullable = false, length = 128)
@@ -55,4 +49,36 @@ public abstract class Person extends AbstractHibernateEntity<Long> {
     }
 
     private static final long serialVersionUID = 823321933233116966L;
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public String getRegidentNo() {
+        return this.regidentNo;
+    }
+
+    public Integer getAge() {
+        return this.age;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setRegidentNo(String regidentNo) {
+        this.regidentNo = regidentNo;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
+    protected void setId(Long id) {
+        this.id = id;
+    }
 }

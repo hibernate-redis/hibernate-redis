@@ -1,8 +1,5 @@
 package org.hibernate.examples.mapping.associations.onetomany;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
 import org.hibernate.annotations.*;
 import org.hibernate.examples.model.AbstractHibernateEntity;
 import org.hibernate.examples.utils.HashTool;
@@ -24,14 +21,11 @@ import java.util.Set;
  */
 @Entity
 @org.hibernate.annotations.Cache(region = "example", usage = CacheConcurrencyStrategy.READ_WRITE)
-@Getter
-@Setter
 public class OneToManyUser extends AbstractHibernateEntity<Long> {
 
     @Id
     @GeneratedValue
     @Column(name = "userId")
-    @Setter(AccessLevel.PROTECTED)
     private Long id;
 
     private String city;
@@ -61,4 +55,36 @@ public class OneToManyUser extends AbstractHibernateEntity<Long> {
     }
 
     private static final long serialVersionUID = -1397252295104008999L;
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public String getCity() {
+        return this.city;
+    }
+
+    public Map<String, OneToManyAddress> getAddresses() {
+        return this.addresses;
+    }
+
+    public Set<String> getNicknames() {
+        return this.nicknames;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public void setAddresses(Map<String, OneToManyAddress> addresses) {
+        this.addresses = addresses;
+    }
+
+    public void setNicknames(Set<String> nicknames) {
+        this.nicknames = nicknames;
+    }
+
+    protected void setId(Long id) {
+        this.id = id;
+    }
 }

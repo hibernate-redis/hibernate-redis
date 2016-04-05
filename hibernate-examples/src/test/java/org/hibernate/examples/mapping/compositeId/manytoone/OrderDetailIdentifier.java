@@ -1,6 +1,5 @@
 package org.hibernate.examples.mapping.compositeId.manytoone;
 
-import lombok.Getter;
 import org.hibernate.examples.model.AbstractValueObject;
 import org.hibernate.examples.utils.HashTool;
 import org.hibernate.examples.utils.ToStringHelper;
@@ -16,7 +15,6 @@ import javax.persistence.ManyToOne;
  * @since 2013. 11. 29. 오후 5:06
  */
 @Embeddable
-@Getter
 public class OrderDetailIdentifier extends AbstractValueObject {
 
     protected OrderDetailIdentifier() {}
@@ -50,4 +48,12 @@ public class OrderDetailIdentifier extends AbstractValueObject {
     }
 
     private static final long serialVersionUID = -7914201856753998776L;
+
+    public Order getOrder() {
+        return this.order;
+    }
+
+    public Product getProduct() {
+        return this.product;
+    }
 }

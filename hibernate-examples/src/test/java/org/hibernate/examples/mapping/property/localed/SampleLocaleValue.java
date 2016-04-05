@@ -1,7 +1,5 @@
 package org.hibernate.examples.mapping.property.localed;
 
-import lombok.Getter;
-import lombok.Setter;
 import org.hibernate.examples.model.AbstractValueObject;
 import org.hibernate.examples.model.LocaleValue;
 import org.hibernate.examples.utils.HashTool;
@@ -15,8 +13,6 @@ import javax.persistence.Embeddable;
  * @since 2013. 12. 3. 오후 4:14
  */
 @Embeddable
-@Getter
-@Setter
 public class SampleLocaleValue extends AbstractValueObject implements LocaleValue {
 
     public SampleLocaleValue() {}
@@ -36,4 +32,20 @@ public class SampleLocaleValue extends AbstractValueObject implements LocaleValu
     }
 
     private static final long serialVersionUID = -124348975681798754L;
+
+    public String getTitle() {
+        return this.title;
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }

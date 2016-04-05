@@ -1,8 +1,5 @@
 package org.hibernate.examples.mapping.tree;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
 import org.hibernate.annotations.*;
 import org.hibernate.examples.model.AbstractHibernateEntity;
 import org.hibernate.examples.model.HibernateTreeEntity;
@@ -26,13 +23,10 @@ import java.util.Set;
 @org.hibernate.annotations.Cache(region = "example", usage = CacheConcurrencyStrategy.READ_WRITE)
 @DynamicInsert
 @DynamicUpdate
-@Getter
-@Setter
 public class TreeNode extends AbstractHibernateEntity<Long> implements HibernateTreeEntity<TreeNode> {
 
     @Id
     @GeneratedValue
-    @Setter(AccessLevel.PROTECTED)
     private Long id;
 
     private String title;
@@ -94,4 +88,60 @@ public class TreeNode extends AbstractHibernateEntity<Long> implements Hibernate
     }
 
     private static final long serialVersionUID = 6573065680420748563L;
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public String getTitle() {
+        return this.title;
+    }
+
+    public String getData() {
+        return this.data;
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
+
+    public TreeNode getParent() {
+        return this.parent;
+    }
+
+    public Set<TreeNode> getChildren() {
+        return this.children;
+    }
+
+    public TreeNodePosition getNodePosition() {
+        return this.nodePosition;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setData(String data) {
+        this.data = data;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setParent(TreeNode parent) {
+        this.parent = parent;
+    }
+
+    public void setChildren(Set<TreeNode> children) {
+        this.children = children;
+    }
+
+    public void setNodePosition(TreeNodePosition nodePosition) {
+        this.nodePosition = nodePosition;
+    }
+
+    protected void setId(Long id) {
+        this.id = id;
+    }
 }

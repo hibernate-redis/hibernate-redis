@@ -1,8 +1,5 @@
 package org.hibernate.examples.mapping.simple;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.GenerationTime;
 import org.hibernate.examples.model.AbstractHibernateEntity;
@@ -19,13 +16,10 @@ import java.util.Date;
  */
 @Entity
 @org.hibernate.annotations.Cache(region = "example", usage = CacheConcurrencyStrategy.READ_WRITE)
-@Getter
-@Setter
 public class LifecycleEntity extends AbstractHibernateEntity<Long> {
 
     @Id
     @GeneratedValue
-    @Setter(AccessLevel.PROTECTED)
     private Long id;
 
     private String name;
@@ -47,4 +41,36 @@ public class LifecycleEntity extends AbstractHibernateEntity<Long> {
     }
 
     private static final long serialVersionUID = 9019361741633267121L;
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public Date getCreatedAt() {
+        return this.createdAt;
+    }
+
+    public Date getUpdatedAt() {
+        return this.updatedAt;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    protected void setId(Long id) {
+        this.id = id;
+    }
 }

@@ -1,8 +1,5 @@
 package org.hibernate.examples.mapping.associations.manytoone;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.examples.model.AbstractHibernateEntity;
 import org.hibernate.examples.utils.HashTool;
@@ -18,8 +15,6 @@ import javax.persistence.*;
  */
 @Entity
 @org.hibernate.annotations.Cache(region = "example", usage = CacheConcurrencyStrategy.READ_WRITE)
-@Getter
-@Setter
 public class SalesGuy extends AbstractHibernateEntity<Long> {
 
     protected SalesGuy() {}
@@ -30,7 +25,6 @@ public class SalesGuy extends AbstractHibernateEntity<Long> {
 
     @Id
     @GeneratedValue
-    @Setter(AccessLevel.PROTECTED)
     private Long id;
 
     private String name;
@@ -50,4 +44,28 @@ public class SalesGuy extends AbstractHibernateEntity<Long> {
     }
 
     private static final long serialVersionUID = -1171720938973299196L;
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public SalesForce getSalesForce() {
+        return this.salesForce;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setSalesForce(SalesForce salesForce) {
+        this.salesForce = salesForce;
+    }
+
+    protected void setId(Long id) {
+        this.id = id;
+    }
 }

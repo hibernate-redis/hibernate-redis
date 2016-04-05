@@ -1,8 +1,5 @@
 package org.hibernate.examples.mapping.associations.onetomany.list;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.examples.model.AbstractHibernateEntity;
 import org.hibernate.examples.utils.HashTool;
@@ -21,8 +18,6 @@ import java.util.Date;
  */
 @Entity
 @org.hibernate.annotations.Cache(region = "example", usage = CacheConcurrencyStrategy.READ_WRITE)
-@Getter
-@Setter
 public class OneToManyChild extends AbstractHibernateEntity<Long> {
 
     protected OneToManyChild() {}
@@ -33,7 +28,6 @@ public class OneToManyChild extends AbstractHibernateEntity<Long> {
 
     @Id
     @GeneratedValue
-    @Setter(AccessLevel.PROTECTED)
     private Long id;
 
     private String name;
@@ -53,4 +47,28 @@ public class OneToManyChild extends AbstractHibernateEntity<Long> {
     }
 
     private static final long serialVersionUID = 8340891121768039665L;
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public Date getBirthday() {
+        return this.birthday;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+
+    protected void setId(Long id) {
+        this.id = id;
+    }
 }

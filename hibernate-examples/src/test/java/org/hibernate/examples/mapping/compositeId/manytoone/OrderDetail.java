@@ -1,8 +1,5 @@
 package org.hibernate.examples.mapping.compositeId.manytoone;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -26,8 +23,6 @@ import java.math.BigDecimal;
 @org.hibernate.annotations.Cache(region = "example", usage = CacheConcurrencyStrategy.READ_WRITE)
 @DynamicInsert
 @DynamicUpdate
-@Getter
-@Setter
 public class OrderDetail extends AbstractHibernateEntity<OrderDetailIdentifier> {
 
     protected OrderDetail() {}
@@ -41,7 +36,6 @@ public class OrderDetail extends AbstractHibernateEntity<OrderDetailIdentifier> 
     }
 
     @EmbeddedId
-    @Setter(AccessLevel.PROTECTED)
     private OrderDetailIdentifier id;
 
     private BigDecimal unitPrice;
@@ -63,4 +57,36 @@ public class OrderDetail extends AbstractHibernateEntity<OrderDetailIdentifier> 
     }
 
     private static final long serialVersionUID = 6958616166017033341L;
+
+    public OrderDetailIdentifier getId() {
+        return this.id;
+    }
+
+    public BigDecimal getUnitPrice() {
+        return this.unitPrice;
+    }
+
+    public Integer getQuantity() {
+        return this.quantity;
+    }
+
+    public Float getDiscount() {
+        return this.discount;
+    }
+
+    public void setUnitPrice(BigDecimal unitPrice) {
+        this.unitPrice = unitPrice;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
+    public void setDiscount(Float discount) {
+        this.discount = discount;
+    }
+
+    protected void setId(OrderDetailIdentifier id) {
+        this.id = id;
+    }
 }

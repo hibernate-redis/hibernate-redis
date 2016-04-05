@@ -1,6 +1,5 @@
 package org.hibernate.examples.mapping.property.localed;
 
-import lombok.extern.slf4j.Slf4j;
 import org.hibernate.examples.AbstractJpaTest;
 import org.junit.Test;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,7 +16,6 @@ import static org.fest.assertions.Assertions.assertThat;
  * @author 배성혁 sunghyouk.bae@gmail.com
  * @since 2013. 12. 3. 오후 4:18
  */
-@Slf4j
 @Transactional
 public class LocaleEntityTest extends AbstractJpaTest {
 

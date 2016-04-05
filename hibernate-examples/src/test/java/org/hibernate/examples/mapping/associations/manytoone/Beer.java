@@ -1,8 +1,5 @@
 package org.hibernate.examples.mapping.associations.manytoone;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.LazyToOne;
 import org.hibernate.annotations.LazyToOneOption;
@@ -20,13 +17,10 @@ import javax.persistence.*;
  */
 @Entity
 @org.hibernate.annotations.Cache(region = "example", usage = CacheConcurrencyStrategy.READ_WRITE)
-@Getter
-@Setter
 public class Beer extends AbstractHibernateEntity<Long> {
 
     @Id
     @GeneratedValue
-    @Setter(AccessLevel.PROTECTED)
     private Long id;
 
     private String name;
@@ -53,4 +47,36 @@ public class Beer extends AbstractHibernateEntity<Long> {
     }
 
     private static final long serialVersionUID = 1335724074913569654L;
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public Double getPrice() {
+        return this.price;
+    }
+
+    public Brewery getBrewery() {
+        return this.brewery;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public void setBrewery(Brewery brewery) {
+        this.brewery = brewery;
+    }
+
+    protected void setId(Long id) {
+        this.id = id;
+    }
 }

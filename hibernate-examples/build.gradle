@@ -28,7 +28,6 @@ dependencies {
     compile group: 'org.springframework.data', name: 'spring-data-jpa', version:'1.6.0.RELEASE'
     compile group: 'com.zaxxer', name: 'HikariCP', version:'2.4.5'
     compile group: 'com.jolbox', name: 'bonecp', version:'0.8.0.RELEASE'
-    compile group: 'org.projectlombok', name: 'lombok', version:'1.16.8'
     compile group: 'com.mysema.querydsl', name: 'querydsl-jpa', version:querydslVersion
 
     querydslapt group: 'com.mysema.querydsl', name: 'querydsl-apt', version:querydslVersion

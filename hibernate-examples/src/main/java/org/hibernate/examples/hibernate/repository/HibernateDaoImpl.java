@@ -1,6 +1,5 @@
 package org.hibernate.examples.hibernate.repository;
 
-import lombok.extern.slf4j.Slf4j;
 import org.hibernate.*;
 import org.hibernate.criterion.*;
 import org.hibernate.examples.hibernate.HibernateParameter;
@@ -23,7 +22,6 @@ import java.util.List;
  * @author 배성혁 sunghyouk.bae@gmail.com
  * @since 2013. 12. 4. 오후 11:01
  */
-@Slf4j
 @SuppressWarnings("unchecked")
 @Repository
 public class HibernateDaoImpl implements HibernateDao {

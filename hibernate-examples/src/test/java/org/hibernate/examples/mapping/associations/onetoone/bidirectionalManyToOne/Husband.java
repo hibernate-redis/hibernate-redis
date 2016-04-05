@@ -1,8 +1,5 @@
 package org.hibernate.examples.mapping.associations.onetoone.bidirectionalManyToOne;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -22,13 +19,10 @@ import javax.persistence.*;
 @org.hibernate.annotations.Cache(region = "example", usage = CacheConcurrencyStrategy.READ_WRITE)
 @DynamicInsert
 @DynamicUpdate
-@Getter
-@Setter
 public class Husband extends AbstractHibernateEntity<Long> {
 
     @Id
     @GeneratedValue
-    @Setter(AccessLevel.PROTECTED)
     private Long id;
 
     private String name;
@@ -49,4 +43,28 @@ public class Husband extends AbstractHibernateEntity<Long> {
     }
 
     private static final long serialVersionUID = -8921845900115770096L;
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public Wife getWife() {
+        return this.wife;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setWife(Wife wife) {
+        this.wife = wife;
+    }
+
+    protected void setId(Long id) {
+        this.id = id;
+    }
 }

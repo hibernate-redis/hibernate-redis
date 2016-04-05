@@ -1,6 +1,5 @@
 package org.hibernate.examples.mapping.queries;
 
-import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.examples.AbstractHibernateTest;
@@ -16,7 +15,6 @@ import static org.fest.assertions.Assertions.assertThat;
  * @author 배성혁 sunghyouk.bae@gmail.com
  * @since 2013. 12. 3. 오후 8:25
  */
-@Slf4j
 @Transactional
 public class HibernateQueryTest extends AbstractHibernateTest {
 
@@ -66,8 +64,6 @@ public class HibernateQueryTest extends AbstractHibernateTest {
     public void setUp() throws Exception {
         sessionFactory.getCache().evictEntityRegion(Hypothesis.class);
         sessionFactory.getCache().evictEntityRegion(Helicopter.class);
-
-        log.info("예제용 데이터 추가");
 
         Hypothesis socrates = new Hypothesis();
         socrates.setId("13");

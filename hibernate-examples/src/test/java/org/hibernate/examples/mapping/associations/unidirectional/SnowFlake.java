@@ -1,7 +1,5 @@
 package org.hibernate.examples.mapping.associations.unidirectional;
 
-import lombok.Getter;
-import lombok.Setter;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -23,8 +21,6 @@ import javax.persistence.Id;
 @org.hibernate.annotations.Cache(region = "example", usage = CacheConcurrencyStrategy.READ_WRITE)
 @DynamicInsert
 @DynamicUpdate
-@Getter
-@Setter
 public class SnowFlake extends AbstractHibernateEntity<Long> {
 
     @Id
@@ -48,4 +44,28 @@ public class SnowFlake extends AbstractHibernateEntity<Long> {
     }
 
     private static final long serialVersionUID = -4213456151376181467L;
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }

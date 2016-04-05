@@ -1,7 +1,5 @@
 package org.hibernate.examples.mapping;
 
-import lombok.Getter;
-import lombok.Setter;
 import org.hibernate.examples.model.AbstractValueObject;
 import org.hibernate.examples.utils.HashTool;
 import org.hibernate.examples.utils.ToStringHelper;
@@ -15,8 +13,6 @@ import javax.persistence.Embeddable;
  * @since 2013. 11. 28. 오전 9:42
  */
 @Embeddable
-@Getter
-@Setter
 public class Address extends AbstractValueObject {
 
     private String street;
@@ -43,4 +39,44 @@ public class Address extends AbstractValueObject {
 
 
     private static final long serialVersionUID = -6441062979081642183L;
+
+    public String getStreet() {
+        return this.street;
+    }
+
+    public String getCity() {
+        return this.city;
+    }
+
+    public String getState() {
+        return this.state;
+    }
+
+    public String getCountry() {
+        return this.country;
+    }
+
+    public String getZipcode() {
+        return this.zipcode;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public void setZipcode(String zipcode) {
+        this.zipcode = zipcode;
+    }
 }

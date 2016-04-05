@@ -1,8 +1,5 @@
 package org.hibernate.examples.mapping.associations.join;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -24,13 +21,10 @@ import javax.persistence.Id;
 @org.hibernate.annotations.Cache(region = "example", usage = CacheConcurrencyStrategy.READ_WRITE)
 @DynamicInsert
 @DynamicUpdate
-@Getter
-@Setter
 public class JoinAddressEntity extends AbstractHibernateEntity<Long> {
 
     @Id
     @GeneratedValue
-    @Setter(AccessLevel.PROTECTED)
     private Long id;
 
     private String street;
@@ -51,4 +45,36 @@ public class JoinAddressEntity extends AbstractHibernateEntity<Long> {
     }
 
     private static final long serialVersionUID = 6610359502465293056L;
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public String getStreet() {
+        return this.street;
+    }
+
+    public String getCity() {
+        return this.city;
+    }
+
+    public String getZipcode() {
+        return this.zipcode;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public void setZipcode(String zipcode) {
+        this.zipcode = zipcode;
+    }
+
+    protected void setId(Long id) {
+        this.id = id;
+    }
 }

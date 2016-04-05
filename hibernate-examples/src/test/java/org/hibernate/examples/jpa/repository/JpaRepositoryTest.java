@@ -1,9 +1,9 @@
 package org.hibernate.examples.jpa.repository;
 
-import lombok.extern.slf4j.Slf4j;
 import org.hibernate.examples.AbstractJpaTest;
 import org.hibernate.examples.mapping.Employee;
 import org.junit.Test;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,10 +19,10 @@ import static org.fest.assertions.Assertions.assertThat;
  * @author 배성혁 sunghyouk.bae@gmail.com
  * @since 2013. 11. 28. 오후 10:58
  */
-@Slf4j
 @Transactional
 public class JpaRepositoryTest extends AbstractJpaTest {
 
+    private static final Logger log = org.slf4j.LoggerFactory.getLogger(JpaRepositoryTest.class);
     @Autowired EmployeeRepository empRepository;
     @PersistenceContext EntityManager em;
 

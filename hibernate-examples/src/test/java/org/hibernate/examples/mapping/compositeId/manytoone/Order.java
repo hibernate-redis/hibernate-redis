@@ -1,8 +1,5 @@
 package org.hibernate.examples.mapping.compositeId.manytoone;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
 import org.hibernate.annotations.*;
 import org.hibernate.examples.model.AbstractHibernateEntity;
 import org.hibernate.examples.utils.HashTool;
@@ -27,14 +24,11 @@ import java.util.List;
 @org.hibernate.annotations.Cache(region = "example", usage = CacheConcurrencyStrategy.READ_WRITE)
 @DynamicInsert
 @DynamicUpdate
-@Getter
-@Setter
 public class Order extends AbstractHibernateEntity<Long> {
 
     @Id
     @GeneratedValue
     @Column(name = "orderId")
-    @Setter(AccessLevel.PROTECTED)
     private Long id;
 
     private String number;
@@ -59,4 +53,36 @@ public class Order extends AbstractHibernateEntity<Long> {
     }
 
     private static final long serialVersionUID = -478214079111379653L;
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public String getNumber() {
+        return this.number;
+    }
+
+    public Date getOrderDate() {
+        return this.orderDate;
+    }
+
+    public List<OrderDetail> getOrderDetails() {
+        return this.orderDetails;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
+    public void setOrderDate(Date orderDate) {
+        this.orderDate = orderDate;
+    }
+
+    public void setOrderDetails(List<OrderDetail> orderDetails) {
+        this.orderDetails = orderDetails;
+    }
+
+    protected void setId(Long id) {
+        this.id = id;
+    }
 }

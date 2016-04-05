@@ -3,11 +3,8 @@ package org.hibernate.examples.utils;
 import com.jolbox.bonecp.BoneCPDataSource;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
-import lombok.extern.slf4j.Slf4j;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.Map;
 import java.util.Properties;
 
@@ -17,7 +14,6 @@ import java.util.Properties;
  * @author 배성혁 sunghyouk.bae@gmail.com
  * @since 2013. 11. 28. 오전 11:04
  */
-@Slf4j
 public class DataSources {
 
     private DataSources() {}

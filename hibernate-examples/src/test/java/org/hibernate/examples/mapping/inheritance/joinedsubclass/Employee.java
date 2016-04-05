@@ -1,7 +1,5 @@
 package org.hibernate.examples.mapping.inheritance.joinedsubclass;
 
-import lombok.Getter;
-import lombok.Setter;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.LazyToOne;
 import org.hibernate.annotations.LazyToOneOption;
@@ -18,8 +16,6 @@ import javax.persistence.*;
  */
 @Entity(name = "JoinedSubclass_Employee")
 @org.hibernate.annotations.Cache(region = "example", usage = CacheConcurrencyStrategy.READ_WRITE)
-@Getter
-@Setter
 public class Employee extends Person {
 
     @Column(name = "empNo", nullable = false)
@@ -43,4 +39,20 @@ public class Employee extends Person {
     }
 
     private static final long serialVersionUID = 5338078892200915069L;
+
+    public String getEmpNo() {
+        return this.empNo;
+    }
+
+    public Company getCompany() {
+        return this.company;
+    }
+
+    public void setEmpNo(String empNo) {
+        this.empNo = empNo;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
+    }
 }

@@ -1,7 +1,5 @@
 package org.hibernate.examples.mapping.associations.onetomany.set;
 
-import lombok.Getter;
-import lombok.Setter;
 import org.hibernate.annotations.Parent;
 import org.hibernate.examples.model.AbstractValueObject;
 import org.hibernate.examples.utils.HashTool;
@@ -16,8 +14,6 @@ import javax.persistence.Embeddable;
  * @since 2013. 11. 29. 오후 2:18
  */
 @Embeddable
-@Getter
-@Setter
 public class ProductImage extends AbstractValueObject {
 
     // Component가 소유자 Entity를 양방향으로 연관지을 때 사용합니다.
@@ -44,4 +40,44 @@ public class ProductImage extends AbstractValueObject {
     }
 
     private static final long serialVersionUID = 6488204424105012791L;
+
+    public ProductItem getItem() {
+        return this.item;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public String getFilename() {
+        return this.filename;
+    }
+
+    public Integer getSizeX() {
+        return this.sizeX;
+    }
+
+    public Integer getSizeY() {
+        return this.sizeY;
+    }
+
+    public void setItem(ProductItem item) {
+        this.item = item;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setFilename(String filename) {
+        this.filename = filename;
+    }
+
+    public void setSizeX(Integer sizeX) {
+        this.sizeX = sizeX;
+    }
+
+    public void setSizeY(Integer sizeY) {
+        this.sizeY = sizeY;
+    }
 }

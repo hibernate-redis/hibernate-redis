@@ -1,8 +1,5 @@
 package org.hibernate.examples.mapping.associations.manytoone;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.examples.model.AbstractHibernateEntity;
 import org.hibernate.examples.utils.HashTool;
@@ -18,8 +15,6 @@ import javax.persistence.*;
  */
 @Entity
 @org.hibernate.annotations.Cache(region = "example", usage = CacheConcurrencyStrategy.READ_WRITE)
-@Getter
-@Setter
 public class JugMember extends AbstractHibernateEntity<Long> {
 
     public JugMember() {}
@@ -30,7 +25,6 @@ public class JugMember extends AbstractHibernateEntity<Long> {
 
     @Id
     @GeneratedValue
-    @Setter(AccessLevel.PROTECTED)
     private Long id;
 
     private String name;
@@ -51,4 +45,28 @@ public class JugMember extends AbstractHibernateEntity<Long> {
     }
 
     private static final long serialVersionUID = -2648248653087789755L;
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public Jug getMemberOf() {
+        return this.memberOf;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setMemberOf(Jug memberOf) {
+        this.memberOf = memberOf;
+    }
+
+    protected void setId(Long id) {
+        this.id = id;
+    }
 }

@@ -1,8 +1,5 @@
 package org.hibernate.examples.mapping.inheritance.subclass;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -24,14 +21,11 @@ import javax.persistence.*;
 @DiscriminatorColumn(name = "BillingType", discriminatorType = DiscriminatorType.STRING)
 @DynamicInsert
 @DynamicUpdate
-@Getter
-@Setter
 public abstract class AbstractBilling extends AbstractHibernateEntity<Long> {
 
     @Id
     @GeneratedValue
     @Column(name = "billingId")
-    @Setter(AccessLevel.PROTECTED)
     public Long id;
 
     @Column(name = "owner")
@@ -49,4 +43,20 @@ public abstract class AbstractBilling extends AbstractHibernateEntity<Long> {
     }
 
     private static final long serialVersionUID = 8802737282954083012L;
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public String getOwner() {
+        return this.owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
+
+    protected void setId(Long id) {
+        this.id = id;
+    }
 }

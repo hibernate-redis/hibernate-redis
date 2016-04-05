@@ -1,8 +1,5 @@
 package org.hibernate.examples.mapping.associations.manytoone;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
 import org.hibernate.annotations.*;
 import org.hibernate.examples.model.AbstractHibernateEntity;
 import org.hibernate.examples.utils.HashTool;
@@ -22,13 +19,10 @@ import java.util.Set;
  */
 @Entity
 @org.hibernate.annotations.Cache(region = "example", usage = CacheConcurrencyStrategy.READ_WRITE)
-@Getter
-@Setter
 public class Brewery extends AbstractHibernateEntity<Long> {
 
     @Id
     @GeneratedValue
-    @Setter(AccessLevel.PROTECTED)
     private Long id;
 
     private String name;
@@ -54,4 +48,36 @@ public class Brewery extends AbstractHibernateEntity<Long> {
     }
 
     private static final long serialVersionUID = -7350106569344824229L;
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public Set<Beer> getBeers() {
+        return this.beers;
+    }
+
+    public BeerVendor getVendor() {
+        return this.vendor;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setBeers(Set<Beer> beers) {
+        this.beers = beers;
+    }
+
+    public void setVendor(BeerVendor vendor) {
+        this.vendor = vendor;
+    }
+
+    protected void setId(Long id) {
+        this.id = id;
+    }
 }
