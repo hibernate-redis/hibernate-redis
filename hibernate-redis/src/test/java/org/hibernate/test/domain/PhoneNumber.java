@@ -1,8 +1,5 @@
 package org.hibernate.test.domain;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -12,8 +9,6 @@ import java.util.Objects;
  * @author sunghyouk.bae@gmail.com
  * @since 13. 4. 6. 오전 12:54
  */
-@Getter
-@Setter
 public class PhoneNumber implements Serializable {
 
 	private static final long serialVersionUID = 8568232753916897060L;
@@ -34,5 +29,29 @@ public class PhoneNumber implements Serializable {
 
 	public String toString() {
 		return numberType + ":" + phone;
+	}
+
+	public long getPersonId() {
+		return this.personId;
+	}
+
+	public String getNumberType() {
+		return this.numberType;
+	}
+
+	public long getPhone() {
+		return this.phone;
+	}
+
+	public void setPersonId(long personId) {
+		this.personId = personId;
+	}
+
+	public void setNumberType(String numberType) {
+		this.numberType = numberType;
+	}
+
+	public void setPhone(long phone) {
+		this.phone = phone;
 	}
 }

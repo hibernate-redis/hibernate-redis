@@ -16,9 +16,6 @@
 
 package org.hibernate.cache.redis.strategy;
 
-import lombok.Getter;
-import lombok.extern.slf4j.Slf4j;
-import org.hibernate.cache.redis.jedis.JedisClient;
 import org.hibernate.cache.redis.regions.RedisCollectionRegion;
 import org.hibernate.cache.spi.CollectionRegion;
 import org.hibernate.cache.spi.access.CollectionRegionAccessStrategy;
@@ -31,18 +28,13 @@ import org.hibernate.cfg.Settings;
  * @author sunghyouk.bae@gmail.com
  * @since 13. 4. 5. 오후 11:14
  */
-@Slf4j
 public class TransactionalRedisCollectionRegionAccessStrategy
         extends AbstractRedisAccessStrategy<RedisCollectionRegion>
         implements CollectionRegionAccessStrategy {
 
-    @Getter
-    private final JedisClient redis;
-
     public TransactionalRedisCollectionRegionAccessStrategy(RedisCollectionRegion region,
                                                             Settings settings) {
         super(region, settings);
-        this.redis = region.getRedis();
     }
 
     @Override
@@ -52,7 +44,6 @@ public class TransactionalRedisCollectionRegionAccessStrategy
 
     @Override
     public Object get(Object key, long txTimestamp) {
-
         return region.get(key);
     }
 

@@ -1,6 +1,7 @@
 package org.hibernate.cache.redis.serializer;
 
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.xerial.snappy.Snappy;
 
 import java.io.IOException;
@@ -9,9 +10,9 @@ import java.io.IOException;
  * SnappyRedisSerializer
  * Created by debop on 2014. 3. 15.
  */
-@Slf4j
 public class SnappyRedisSerializer<T> implements RedisSerializer<T> {
 
+    private static final Logger log = LoggerFactory.getLogger(SnappyRedisSerializer.class);
     private final RedisSerializer<T> inner;
 
     public SnappyRedisSerializer() {

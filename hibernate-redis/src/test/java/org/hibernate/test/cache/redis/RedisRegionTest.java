@@ -1,6 +1,5 @@
 package org.hibernate.test.cache.redis;
 
-import lombok.extern.slf4j.Slf4j;
 import org.hibernate.cache.redis.SingletonRedisRegionFactory;
 import org.hibernate.cache.redis.strategy.AbstractReadWriteRedisAccessStrategy;
 import org.hibernate.cfg.Configuration;
@@ -15,7 +14,6 @@ import java.util.Map;
  * @author sunghyouk.bae@gmail.com
  * @since 13. 4. 6. 오전 12:52
  */
-@Slf4j
 public class RedisRegionTest extends RedisTest {
 
     @Override

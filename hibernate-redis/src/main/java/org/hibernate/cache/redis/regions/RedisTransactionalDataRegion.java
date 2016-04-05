@@ -16,7 +16,6 @@
 
 package org.hibernate.cache.redis.regions;
 
-import lombok.extern.slf4j.Slf4j;
 import org.hibernate.cache.CacheException;
 import org.hibernate.cache.redis.jedis.JedisClient;
 import org.hibernate.cache.redis.strategy.RedisAccessStrategyFactory;
@@ -24,6 +23,8 @@ import org.hibernate.cache.redis.timestamper.JedisCacheTimestamper;
 import org.hibernate.cache.spi.CacheDataDescription;
 import org.hibernate.cache.spi.TransactionalDataRegion;
 import org.hibernate.cfg.Settings;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Properties;
 
@@ -33,9 +34,9 @@ import java.util.Properties;
  * @author sunghyouk.bae@gmail.com
  * @since 13. 4. 5. 오후 9:44
  */
-@Slf4j
 public class RedisTransactionalDataRegion extends RedisDataRegion implements TransactionalDataRegion {
 
+    private static final Logger log = LoggerFactory.getLogger(RedisTransactionalDataRegion.class);
     /**
      * Hibernate settings associated with the persistence unit.
      */

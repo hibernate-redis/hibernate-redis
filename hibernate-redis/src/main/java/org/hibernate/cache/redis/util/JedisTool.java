@@ -16,17 +16,14 @@
 
 package org.hibernate.cache.redis.util;
 
-import lombok.extern.slf4j.Slf4j;
 import org.hibernate.cache.redis.jedis.JedisClient;
 import org.hibernate.cache.redis.timestamper.JedisCacheTimestamper;
 import org.hibernate.cache.redis.timestamper.JedisCacheTimestamperJvmImpl;
 import org.hibernate.cfg.Environment;
 import org.hibernate.cfg.Settings;
-import redis.clients.jedis.Jedis;
-import redis.clients.jedis.JedisPool;
-import redis.clients.jedis.JedisPoolConfig;
-import redis.clients.jedis.JedisSentinelPool;
-import redis.clients.jedis.Protocol;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import redis.clients.jedis.*;
 import redis.clients.util.Pool;
 
 import java.io.File;
@@ -44,7 +41,6 @@ import java.util.Set;
  * @author 배성혁 sunghyouk.bae@gmail.com
  * @since 13. 5. 2. 오전 1:53
  */
-@Slf4j
 public final class JedisTool {
 
     private static final String EXPIRE_IN_SECONDS = "redis.expiryInSeconds";
@@ -52,6 +48,7 @@ public final class JedisTool {
     private static final String FILE_URL_PREFIX = "file:";
     public static final String TIMESTAMPER_PROPERTY_KEY = "redis.timestamper.class";
     public static final Class<?> DEFAULT_TIMESTAMPER_CLASS = JedisCacheTimestamperJvmImpl.class;
+    private static final Logger log = LoggerFactory.getLogger(JedisTool.class);
 
     private JedisTool() { }
 

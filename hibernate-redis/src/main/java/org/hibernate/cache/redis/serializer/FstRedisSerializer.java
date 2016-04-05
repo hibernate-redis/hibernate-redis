@@ -1,10 +1,10 @@
 package org.hibernate.cache.redis.serializer;
 
-import lombok.Cleanup;
-import lombok.extern.slf4j.Slf4j;
 import org.nustaq.serialization.FSTConfiguration;
 import org.nustaq.serialization.FSTObjectInput;
 import org.nustaq.serialization.FSTObjectOutput;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -14,10 +14,10 @@ import java.io.ByteArrayOutputStream;
  *
  * @author Sunghyouk Bae
  */
-@Slf4j
 public class FstRedisSerializer<T> implements RedisSerializer<T> {
 
     private static final FSTConfiguration conf = FSTConfiguration.createDefaultConfiguration();
+    private static final Logger log = LoggerFactory.getLogger(FstRedisSerializer.class);
 
     /**
      * Provides access to serialization configuration, to inject custom ClassLoaders
@@ -33,9 +33,7 @@ public class FstRedisSerializer<T> implements RedisSerializer<T> {
         if (graph == null)
             return EMPTY_BYTES;
 
-        try {
-            @Cleanup
-            ByteArrayOutputStream os = new ByteArrayOutputStream();
+        try (ByteArrayOutputStream os = new ByteArrayOutputStream()){
             FSTObjectOutput oos = conf.getObjectOutput(os);
             oos.writeObject(graph);
             oos.flush();
@@ -53,9 +51,7 @@ public class FstRedisSerializer<T> implements RedisSerializer<T> {
         if (SerializationTool.isEmpty(bytes))
             return null;
 
-        try {
-            @Cleanup
-            ByteArrayInputStream is = new ByteArrayInputStream(bytes);
+        try (ByteArrayInputStream is = new ByteArrayInputStream(bytes)){
             FSTObjectInput ois = conf.getObjectInput(is);
             return (T) ois.readObject();
         } catch (Exception e) {

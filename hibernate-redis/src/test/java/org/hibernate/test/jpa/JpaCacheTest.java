@@ -1,12 +1,13 @@
 package org.hibernate.test.jpa;
 
-import lombok.extern.slf4j.Slf4j;
 import org.hibernate.test.domain.Item;
 import org.hibernate.test.jpa.repository.EventRepository;
 import org.hibernate.test.jpa.repository.ItemRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
@@ -26,12 +27,12 @@ import static org.fest.assertions.Assertions.assertThat;
  * @author 배성혁 sunghyouk.bae@gmail.com
  * @since 2013. 12. 21. 오후 5:50
  */
-@Slf4j
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {JpaRedisConfiguration.class})
 @Transactional
 public class JpaCacheTest {
 
+    private static final Logger log = LoggerFactory.getLogger(JpaCacheTest.class);
     @PersistenceContext EntityManager em;
     @Autowired EventRepository eventRepository;
 

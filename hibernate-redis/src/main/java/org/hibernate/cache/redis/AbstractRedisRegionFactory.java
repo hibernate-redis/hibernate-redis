@@ -16,7 +16,6 @@
 
 package org.hibernate.cache.redis;
 
-import lombok.extern.slf4j.Slf4j;
 import org.hibernate.cache.CacheException;
 import org.hibernate.cache.redis.jedis.JedisClient;
 import org.hibernate.cache.redis.regions.*;
@@ -27,6 +26,8 @@ import org.hibernate.cache.redis.util.JedisTool;
 import org.hibernate.cache.spi.*;
 import org.hibernate.cache.spi.access.AccessType;
 import org.hibernate.cfg.Settings;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Properties;
 import java.util.Set;
@@ -38,9 +39,9 @@ import java.util.concurrent.ConcurrentSkipListSet;
  * @author sunghyouk.bae@gmail.com
  * @since 13. 4. 5. 오후 11:59
  */
-@Slf4j
 abstract class AbstractRedisRegionFactory implements RegionFactory {
 
+    private static final Logger log = LoggerFactory.getLogger(AbstractRedisRegionFactory.class);
     /**
      * Settings object for the Hibernate persistence unit.
      */

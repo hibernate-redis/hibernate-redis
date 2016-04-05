@@ -1,8 +1,5 @@
 package org.hibernate.test.domain;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -15,8 +12,6 @@ import java.io.Serializable;
  * @since 13. 4. 6. 오전 12:54
  */
 @Entity
-@Getter
-@Setter
 public class UuidItem implements Serializable {
 
 	private static final long serialVersionUID = 855411710458442104L;
@@ -34,4 +29,43 @@ public class UuidItem implements Serializable {
     private Double amount = 134.9d;
 
 
+	public String getId() {
+		return this.id;
+	}
+
+	public String getName() {
+		return this.name;
+	}
+
+	public String getDescription() {
+		return this.description;
+	}
+
+	public Float getScore() {
+		return this.score;
+	}
+
+	public Double getAmount() {
+		return this.amount;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public void setScore(Float score) {
+		this.score = score;
+	}
+
+	public void setAmount(Double amount) {
+		this.amount = amount;
+	}
 }
