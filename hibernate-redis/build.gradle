@@ -9,6 +9,7 @@ javadoc {
     failOnError = false
 }
 
+apply plugin: 'groovy'
 apply plugin: 'net.researchgate.release'
 apply plugin: 'com.bmuschko.nexus'
 apply plugin: 'io.codearte.nexus-staging'
@@ -29,8 +30,6 @@ dependencies {
     testCompile group: 'org.hibernate', name: 'hibernate-testing', version:hibernateVersion
     testCompile group: 'junit', name: 'junit', version:'4.11'
     testCompile group: 'org.easytesting', name: 'fest-assert', version:'1.4'
-    testCompile group: 'org.hamcrest', name: 'hamcrest-all', version:'1.3'
-    testCompile group: 'com.carrotsearch', name: 'junit-benchmarks', version:'0.7.2'
     testCompile group: 'com.zaxxer', name: 'HikariCP', version:'2.4.5'
     testCompile group: 'com.h2database', name: 'h2', version:'1.3.175'
     testCompile group: 'org.springframework', name: 'spring-core', version:springVersion
@@ -40,8 +39,13 @@ dependencies {
     testCompile group: 'org.springframework', name: 'spring-orm', version:springVersion
     testCompile group: 'org.springframework', name: 'spring-test', version:springVersion
     testCompile group: 'org.springframework.data', name: 'spring-data-jpa', version:'1.6.0.RELEASE'
-    testCompile group: 'org.mockito', name: 'mockito-core', version:'1.9.5'
     testCompile(group: 'mysql', name: 'mysql-connector-java', version:'5.1.27')
+
+    testCompile "org.spockframework:spock-core:1.0-groovy-2.4"
+
+    // optional dependencies for using Spock
+    testRuntime "cglib:cglib-nodep:3.1"          // allows mocking of classes (in addition to interfaces)
+    testRuntime "org.objenesis:objenesis:2.1"    // allows mocking of classes without default constructor (together with CGLIB)
 }
 
 nexus {
