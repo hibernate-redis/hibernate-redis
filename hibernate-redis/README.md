@@ -66,5 +66,5 @@ read [HibernateCacheTest.java][3] for more usage.
 
 [1]: http://www.hibernate.org/
 [2]: https://github.com/xetorthio/jedis
-[3]: https://github.com/debop/hibernate-redis/blob/master/hibernate-redis/src/test/java/org/hibernate/test/cache/HibernateCacheTest.java
+[3]: https://github.com/hibernate-redis/hibernate-redis/blob/master/hibernate-redis/src/test/java/org/hibernate/test/cache/HibernateCacheTest.java
 [4]: http://projects.spring.io/spring-data-jpa/

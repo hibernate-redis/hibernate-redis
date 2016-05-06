@@ -1,7 +1,5 @@
 package org.hibernate.examples.jpa.config;
 
-import lombok.Getter;
-import lombok.Setter;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.examples.model.AbstractHibernateEntity;
 import org.hibernate.examples.utils.HashTool;
@@ -13,8 +11,6 @@ import javax.persistence.*;
 @Entity
 @org.hibernate.annotations.Cache(region = "example", usage = CacheConcurrencyStrategy.READ_WRITE)
 @NamedQuery(name = "JpaAccount.findByName", query = "select ja from JpaAccount ja where ja.name=?1")
-@Getter
-@Setter
 public class JpaAccount extends AbstractHibernateEntity<Long> {
 
     @Id
@@ -38,4 +34,28 @@ public class JpaAccount extends AbstractHibernateEntity<Long> {
     }
 
     private static final long serialVersionUID = 8986275418970766284L;
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public Double getCashBalance() {
+        return this.cashBalance;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setCashBalance(Double cashBalance) {
+        this.cashBalance = cashBalance;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

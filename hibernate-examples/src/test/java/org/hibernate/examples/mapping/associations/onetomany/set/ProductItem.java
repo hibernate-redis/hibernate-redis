@@ -1,8 +1,5 @@
 package org.hibernate.examples.mapping.associations.onetomany.set;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -26,13 +23,10 @@ import java.util.Set;
 @org.hibernate.annotations.Cache(region = "example", usage = CacheConcurrencyStrategy.READ_WRITE)
 @DynamicInsert
 @DynamicUpdate
-@Getter
-@Setter
 public class ProductItem extends AbstractHibernateEntity<Long> {
 
     @Id
     @GeneratedValue
-    @Setter(AccessLevel.PROTECTED)
     private Long id;
 
     private String name;
@@ -69,4 +63,68 @@ public class ProductItem extends AbstractHibernateEntity<Long> {
     }
 
     private static final long serialVersionUID = 9176636190484261550L;
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
+
+    public BigDecimal getInitialPrice() {
+        return this.initialPrice;
+    }
+
+    public BigDecimal getReservePrice() {
+        return this.reservePrice;
+    }
+
+    public Date getStartDate() {
+        return this.startDate;
+    }
+
+    public Date getEndDate() {
+        return this.endDate;
+    }
+
+    public Set<ProductImage> getImages() {
+        return this.images;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setInitialPrice(BigDecimal initialPrice) {
+        this.initialPrice = initialPrice;
+    }
+
+    public void setReservePrice(BigDecimal reservePrice) {
+        this.reservePrice = reservePrice;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
+    public void setImages(Set<ProductImage> images) {
+        this.images = images;
+    }
+
+    protected void setId(Long id) {
+        this.id = id;
+    }
 }

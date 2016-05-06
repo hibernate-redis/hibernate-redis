@@ -3,7 +3,6 @@ package org.hibernate.examples.utils;
 import com.jolbox.bonecp.BoneCPDataSource;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
-import lombok.extern.slf4j.Slf4j;
 
 import javax.sql.DataSource;
 import java.util.Map;
@@ -15,7 +14,6 @@ import java.util.Properties;
  * @author 배성혁 sunghyouk.bae@gmail.com
  * @since 2013. 11. 28. 오전 11:04
  */
-@Slf4j
 public class DataSources {
 
     private DataSources() {}
@@ -72,10 +70,19 @@ public class DataSources {
 
         // MySQL 인 경우 성능을 위해 아래 설정을 사용합니다.
         if (DataConst.DRIVER_CLASS_MYSQL.equals(driverClass)) {
-            config.addDataSourceProperty("cachePrepStmts", "true");
-            config.addDataSourceProperty("prepStmtCacheSize", "250");
-            config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
-            config.addDataSourceProperty("useServerPrepStmts", "true");
+            config.addDataSourceProperty("cachePrepStmts", true);
+            config.addDataSourceProperty("prepStmtCacheSize", 250);
+            config.addDataSourceProperty("prepStmtCacheSqlLimit", 2048);
+            /**
+             * Due to a number of issues with the use of server-side prepared statements, Connector/J 5.0.5
+             * has disabled their use by default. The disabling of server-side prepared statements does not
+             * affect the operation of the connector in any way.
+             */
+            config.addDataSourceProperty("useServerPrepStmts", false);
+            /**
+             * Disable rewriteBatchedStatements in case the batch contains a bad query (all queries after the bad query will not be executed).
+             */
+            config.addDataSourceProperty("rewriteBatchedStatements", false);
         }
 
         if (props != null) {

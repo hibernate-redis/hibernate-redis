@@ -16,10 +16,12 @@
 
 package org.hibernate.cache.redis.regions;
 
-import lombok.extern.slf4j.Slf4j;
 import org.hibernate.cache.redis.jedis.JedisClient;
 import org.hibernate.cache.redis.strategy.RedisAccessStrategyFactory;
+import org.hibernate.cache.redis.timestamper.JedisCacheTimestamper;
 import org.hibernate.cache.spi.GeneralDataRegion;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Properties;
 
@@ -29,14 +31,16 @@ import java.util.Properties;
  * @author sunghyouk.bae@gmail.com
  * @since 13. 4. 5. 오후 9:00
  */
-@Slf4j
 public abstract class RedisGeneralDataRegion extends RedisDataRegion implements GeneralDataRegion {
+
+    private static final Logger log = LoggerFactory.getLogger(RedisGeneralDataRegion.class);
 
     protected RedisGeneralDataRegion(RedisAccessStrategyFactory accessStrategyFactory,
                                      JedisClient redis,
                                      String regionName,
-                                     Properties props) {
-        super(accessStrategyFactory, redis, regionName, props);
+                                     Properties props,
+                                     JedisCacheTimestamper timestamper) {
+        super(accessStrategyFactory, redis, regionName, props, timestamper);
     }
 
     @Override

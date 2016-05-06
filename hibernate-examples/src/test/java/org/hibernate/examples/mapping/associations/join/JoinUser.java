@@ -1,8 +1,5 @@
 package org.hibernate.examples.mapping.associations.join;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.DynamicInsert;
@@ -27,13 +24,10 @@ import java.util.Set;
 @org.hibernate.annotations.Cache(region = "example", usage = CacheConcurrencyStrategy.READ_WRITE)
 @DynamicInsert
 @DynamicUpdate
-@Getter
-@Setter
 public class JoinUser extends AbstractHibernateEntity<Long> {
 
     @Id
     @GeneratedValue
-    @Setter(AccessLevel.PROTECTED)
     private Long id;
 
     private String name;
@@ -64,4 +58,36 @@ public class JoinUser extends AbstractHibernateEntity<Long> {
     }
 
     private static final long serialVersionUID = -1086694041889310074L;
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public Map<String, JoinAddressEntity> getAddresses() {
+        return this.addresses;
+    }
+
+    public Set<String> getNicknames() {
+        return this.nicknames;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setAddresses(Map<String, JoinAddressEntity> addresses) {
+        this.addresses = addresses;
+    }
+
+    public void setNicknames(Set<String> nicknames) {
+        this.nicknames = nicknames;
+    }
+
+    protected void setId(Long id) {
+        this.id = id;
+    }
 }

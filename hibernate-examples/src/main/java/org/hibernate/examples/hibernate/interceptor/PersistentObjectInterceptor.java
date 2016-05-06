@@ -1,6 +1,5 @@
 package org.hibernate.examples.hibernate.interceptor;
 
-import lombok.extern.slf4j.Slf4j;
 import org.hibernate.EmptyInterceptor;
 import org.hibernate.examples.model.PersistentObject;
 
@@ -12,7 +11,6 @@ import java.io.Serializable;
  * @author 배성혁 sunghyouk.bae@gmail.com
  * @since 2013. 11. 28. 오전 11:06
  */
-@Slf4j
 public class PersistentObjectInterceptor extends EmptyInterceptor {
 
     public boolean isPersisted(Object entity) {

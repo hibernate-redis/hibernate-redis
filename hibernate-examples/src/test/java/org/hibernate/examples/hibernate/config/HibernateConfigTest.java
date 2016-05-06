@@ -1,6 +1,5 @@
 package org.hibernate.examples.hibernate.config;
 
-import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -19,7 +18,6 @@ import static org.fest.assertions.Assertions.assertThat;
  * @author 배성혁 sunghyouk.bae@gmail.com
  * @since 2013. 11. 28. 오전 9:43
  */
-@Slf4j
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { HibernateConfig.class })
 public class HibernateConfigTest {

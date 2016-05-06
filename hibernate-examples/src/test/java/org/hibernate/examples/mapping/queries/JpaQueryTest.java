@@ -1,6 +1,5 @@
 package org.hibernate.examples.mapping.queries;
 
-import lombok.extern.slf4j.Slf4j;
 import org.hibernate.examples.AbstractJpaTest;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,7 +17,6 @@ import static org.fest.assertions.Assertions.assertThat;
  * @author 배성혁 sunghyouk.bae@gmail.com
  * @since 2013. 12. 3. 오후 8:11
  */
-@Slf4j
 @Transactional
 public class JpaQueryTest extends AbstractJpaTest {
 
@@ -60,8 +58,6 @@ public class JpaQueryTest extends AbstractJpaTest {
     public void setUp() throws Exception {
         em.getEntityManagerFactory().getCache().evict(Hypothesis.class);
         em.getEntityManagerFactory().getCache().evict(Helicopter.class);
-
-        log.debug("예제용 데이터 추가");
 
         Hypothesis socrates = new Hypothesis();
         socrates.setId("13");

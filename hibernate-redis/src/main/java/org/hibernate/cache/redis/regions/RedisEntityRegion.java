@@ -16,10 +16,10 @@
 
 package org.hibernate.cache.redis.regions;
 
-import lombok.extern.slf4j.Slf4j;
 import org.hibernate.cache.CacheException;
 import org.hibernate.cache.redis.jedis.JedisClient;
 import org.hibernate.cache.redis.strategy.RedisAccessStrategyFactory;
+import org.hibernate.cache.redis.timestamper.JedisCacheTimestamper;
 import org.hibernate.cache.spi.CacheDataDescription;
 import org.hibernate.cache.spi.EntityRegion;
 import org.hibernate.cache.spi.access.AccessType;
@@ -37,15 +37,16 @@ import java.util.Properties;
  * @author sunghyouk.bae@gmail.com
  * @since 13. 4. 5. 오후 8:51
  */
-@Slf4j
 public class RedisEntityRegion extends RedisTransactionalDataRegion implements EntityRegion {
 
     public RedisEntityRegion(RedisAccessStrategyFactory accessStrategyFactory,
                              JedisClient redis,
                              String regionName,
                              Settings settings,
-                             CacheDataDescription metadata, Properties props) {
-        super(accessStrategyFactory, redis, regionName, settings, metadata, props);
+                             CacheDataDescription metadata,
+                             Properties props,
+                             JedisCacheTimestamper timestamper) {
+        super(accessStrategyFactory, redis, regionName, settings, metadata, props, timestamper);
     }
 
     @Override

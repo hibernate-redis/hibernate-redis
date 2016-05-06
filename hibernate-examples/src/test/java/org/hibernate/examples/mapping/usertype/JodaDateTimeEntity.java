@@ -1,8 +1,5 @@
 package org.hibernate.examples.mapping.usertype;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -24,13 +21,10 @@ import javax.persistence.*;
 @org.hibernate.annotations.Cache(region = "example", usage = CacheConcurrencyStrategy.READ_WRITE)
 @DynamicInsert
 @DynamicUpdate
-@Getter
-@Setter
 public class JodaDateTimeEntity extends AbstractHibernateEntity<Long> {
 
     @Id
     @GeneratedValue
-    @Setter(AccessLevel.PROTECTED)
     private Long id;
 
     @Column(name = "JodaStart")
@@ -64,4 +58,44 @@ public class JodaDateTimeEntity extends AbstractHibernateEntity<Long> {
     }
 
     private static final long serialVersionUID = -5195581340713775796L;
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public DateTime getStart() {
+        return this.start;
+    }
+
+    public DateTime getEnd() {
+        return this.end;
+    }
+
+    public DateTimeRange getRange1() {
+        return this.range1;
+    }
+
+    public DateTimeRange getRange2() {
+        return this.range2;
+    }
+
+    public void setStart(DateTime start) {
+        this.start = start;
+    }
+
+    public void setEnd(DateTime end) {
+        this.end = end;
+    }
+
+    public void setRange1(DateTimeRange range1) {
+        this.range1 = range1;
+    }
+
+    public void setRange2(DateTimeRange range2) {
+        this.range2 = range2;
+    }
+
+    protected void setId(Long id) {
+        this.id = id;
+    }
 }

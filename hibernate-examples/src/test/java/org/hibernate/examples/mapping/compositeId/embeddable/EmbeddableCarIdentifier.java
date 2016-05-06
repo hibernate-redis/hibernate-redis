@@ -1,6 +1,5 @@
 package org.hibernate.examples.mapping.compositeId.embeddable;
 
-import lombok.Getter;
 import org.hibernate.examples.model.AbstractValueObject;
 import org.hibernate.examples.utils.HashTool;
 import org.hibernate.examples.utils.ToStringHelper;
@@ -15,7 +14,6 @@ import javax.persistence.Embeddable;
  * @since 2013. 11. 29. 오후 4:40
  */
 @Embeddable
-@Getter
 public class EmbeddableCarIdentifier extends AbstractValueObject {
 
     @Column(name = "brand", nullable = false, length = 32)
@@ -44,4 +42,12 @@ public class EmbeddableCarIdentifier extends AbstractValueObject {
     }
 
     private static final long serialVersionUID = -1715963785986881704L;
+
+    public String getBrand() {
+        return this.brand;
+    }
+
+    public int getYear() {
+        return this.year;
+    }
 }

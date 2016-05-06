@@ -1,7 +1,5 @@
 package org.hibernate.examples.mapping.inheritance.unionsubclass;
 
-import lombok.Getter;
-import lombok.Setter;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -21,8 +19,6 @@ import javax.persistence.Entity;
 @org.hibernate.annotations.Cache(region = "example", usage = CacheConcurrencyStrategy.READ_WRITE)
 @DynamicInsert
 @DynamicUpdate
-@Getter
-@Setter
 public class CreditCard extends AbstractBilling {
 
     private String companyName;
@@ -51,4 +47,36 @@ public class CreditCard extends AbstractBilling {
     }
 
     private static final long serialVersionUID = 1711294363190461204L;
+
+    public String getCompanyName() {
+        return this.companyName;
+    }
+
+    public String getNumber() {
+        return this.number;
+    }
+
+    public Integer getExpMonth() {
+        return this.expMonth;
+    }
+
+    public Integer getExpYear() {
+        return this.expYear;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
+    public void setExpMonth(Integer expMonth) {
+        this.expMonth = expMonth;
+    }
+
+    public void setExpYear(Integer expYear) {
+        this.expYear = expYear;
+    }
 }

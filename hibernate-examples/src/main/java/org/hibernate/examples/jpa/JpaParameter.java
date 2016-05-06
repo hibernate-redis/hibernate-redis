@@ -1,6 +1,5 @@
 package org.hibernate.examples.jpa;
 
-import lombok.extern.slf4j.Slf4j;
 import org.hibernate.examples.AbstractNamedParameter;
 import org.hibernate.examples.utils.ToStringHelper;
 import org.hibernate.type.StandardBasicTypes;
@@ -11,7 +10,6 @@ import org.hibernate.type.StandardBasicTypes;
  * @author 배성혁 sunghyouk.bae@gmail.com
  * @since 2013. 11. 28. 오후 3:15
  */
-@Slf4j
 public class JpaParameter extends AbstractNamedParameter {
 
     private org.hibernate.type.Type paramType = StandardBasicTypes.SERIALIZABLE;

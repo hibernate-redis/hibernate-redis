@@ -1,7 +1,5 @@
 package org.hibernate.examples.mapping.associations.join;
 
-import lombok.Getter;
-import lombok.Setter;
 import org.hibernate.examples.model.AbstractValueObject;
 import org.hibernate.examples.utils.HashTool;
 import org.hibernate.examples.utils.ToStringHelper;
@@ -15,8 +13,6 @@ import javax.persistence.Embeddable;
  * @since 2013. 11. 28. 오후 11:12
  */
 @Embeddable
-@Getter
-@Setter
 public class JoinAddress extends AbstractValueObject {
 
     private String street;
@@ -37,5 +33,29 @@ public class JoinAddress extends AbstractValueObject {
     }
 
     private static final long serialVersionUID = -6565835937195482591L;
+
+    public String getStreet() {
+        return this.street;
+    }
+
+    public String getCity() {
+        return this.city;
+    }
+
+    public String getZipcode() {
+        return this.zipcode;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public void setZipcode(String zipcode) {
+        this.zipcode = zipcode;
+    }
 }
 

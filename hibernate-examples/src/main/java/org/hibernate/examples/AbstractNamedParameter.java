@@ -1,7 +1,5 @@
 package org.hibernate.examples;
 
-import lombok.Getter;
-import lombok.Setter;
 import org.hibernate.examples.model.AbstractValueObject;
 import org.hibernate.examples.utils.HashTool;
 import org.hibernate.examples.utils.ToStringHelper;
@@ -12,8 +10,6 @@ import org.hibernate.examples.utils.ToStringHelper;
  * @author 배성혁 sunghyouk.bae@gmail.com
  * @since 2013. 11. 28. 오후 1:24
  */
-@Getter
-@Setter
 public abstract class AbstractNamedParameter extends AbstractValueObject implements NamedParameter {
 
     private final String name;
@@ -38,4 +34,16 @@ public abstract class AbstractNamedParameter extends AbstractValueObject impleme
     }
 
     private static final long serialVersionUID = 5196081474408493840L;
+
+    public String getName() {
+        return this.name;
+    }
+
+    public Object getValue() {
+        return this.value;
+    }
+
+    public void setValue(Object value) {
+        this.value = value;
+    }
 }

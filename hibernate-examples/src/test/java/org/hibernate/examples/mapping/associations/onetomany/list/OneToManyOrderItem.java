@@ -1,8 +1,5 @@
 package org.hibernate.examples.mapping.associations.onetomany.list;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
 import org.hibernate.annotations.*;
 import org.hibernate.examples.model.AbstractHibernateEntity;
 import org.hibernate.examples.utils.HashTool;
@@ -21,14 +18,11 @@ import javax.persistence.*;
 @org.hibernate.annotations.Cache(region = "example", usage = CacheConcurrencyStrategy.READ_WRITE)
 @DynamicInsert
 @DynamicUpdate
-@Getter
-@Setter
 public class OneToManyOrderItem extends AbstractHibernateEntity<Long> {
 
 
     @Id
     @GeneratedValue
-    @Setter(AccessLevel.PROTECTED)
     private Long id;
 
     private String name;
@@ -50,4 +44,28 @@ public class OneToManyOrderItem extends AbstractHibernateEntity<Long> {
     }
 
     private static final long serialVersionUID = -4968710913293508239L;
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public OneToManyOrder getOrder() {
+        return this.order;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setOrder(OneToManyOrder order) {
+        this.order = order;
+    }
+
+    protected void setId(Long id) {
+        this.id = id;
+    }
 }

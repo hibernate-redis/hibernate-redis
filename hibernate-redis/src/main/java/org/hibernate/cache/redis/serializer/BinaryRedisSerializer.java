@@ -16,8 +16,8 @@
 
 package org.hibernate.cache.redis.serializer;
 
-import lombok.Cleanup;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -30,18 +30,18 @@ import java.io.ObjectOutputStream;
  * @author sunghyouk.bae@gmail.com
  * @since 13. 4. 9 오후 10:20
  */
-@Slf4j
 public class BinaryRedisSerializer<T> implements RedisSerializer<T> {
+
+    private static final Logger log = LoggerFactory.getLogger(BinaryRedisSerializer.class);
 
     @Override
     public byte[] serialize(final T graph) {
         if (graph == null) return EMPTY_BYTES;
 
-        try {
-            @Cleanup
+        try (
             ByteArrayOutputStream os = new ByteArrayOutputStream();
-            @Cleanup
             ObjectOutputStream oos = new ObjectOutputStream(os);
+        ) {
             oos.writeObject(graph);
             oos.flush();
 
@@ -57,11 +57,10 @@ public class BinaryRedisSerializer<T> implements RedisSerializer<T> {
     public T deserialize(final byte[] bytes) {
         if (SerializationTool.isEmpty(bytes))
             return null;
-        try {
-            @Cleanup
+        try (
             ByteArrayInputStream is = new ByteArrayInputStream(bytes);
-            @Cleanup
             ObjectInputStream ois = new ObjectInputStream(is);
+        ) {
             return (T) ois.readObject();
         } catch (Exception e) {
             log.warn("Fail to deserialize bytes.", e);

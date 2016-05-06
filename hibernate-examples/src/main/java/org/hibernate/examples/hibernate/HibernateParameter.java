@@ -1,10 +1,9 @@
 package org.hibernate.examples.hibernate;
 
-import lombok.Getter;
-import lombok.Setter;
 import org.hibernate.examples.AbstractNamedParameter;
 import org.hibernate.examples.utils.ToStringHelper;
 import org.hibernate.type.StandardBasicTypes;
+import org.hibernate.type.Type;
 
 /**
  * Hibernate Query 에 사용할 인자 정보를 표현합니다.
@@ -14,8 +13,6 @@ import org.hibernate.type.StandardBasicTypes;
  */
 public class HibernateParameter extends AbstractNamedParameter {
 
-    @Getter
-    @Setter
     private org.hibernate.type.Type paramType = StandardBasicTypes.SERIALIZABLE;
 
     public HibernateParameter(String name, Object value) {
@@ -33,4 +30,12 @@ public class HibernateParameter extends AbstractNamedParameter {
     }
 
     private static final long serialVersionUID = -228167603287695079L;
+
+    public Type getParamType() {
+        return this.paramType;
+    }
+
+    public void setParamType(Type paramType) {
+        this.paramType = paramType;
+    }
 }

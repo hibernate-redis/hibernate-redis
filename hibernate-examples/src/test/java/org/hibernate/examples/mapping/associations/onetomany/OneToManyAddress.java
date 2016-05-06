@@ -1,8 +1,5 @@
 package org.hibernate.examples.mapping.associations.onetomany;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.examples.model.AbstractHibernateEntity;
 import org.hibernate.examples.utils.HashTool;
@@ -20,13 +17,10 @@ import javax.persistence.Id;
  */
 @Entity
 @org.hibernate.annotations.Cache(region = "example", usage = CacheConcurrencyStrategy.READ_WRITE)
-@Getter
-@Setter
 public class OneToManyAddress extends AbstractHibernateEntity<Long> {
 
     @Id
     @GeneratedValue
-    @Setter(AccessLevel.PROTECTED)
     private Long id;
 
     private String city;
@@ -43,4 +37,20 @@ public class OneToManyAddress extends AbstractHibernateEntity<Long> {
     }
 
     private static final long serialVersionUID = -8229206528601220447L;
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public String getCity() {
+        return this.city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    protected void setId(Long id) {
+        this.id = id;
+    }
 }

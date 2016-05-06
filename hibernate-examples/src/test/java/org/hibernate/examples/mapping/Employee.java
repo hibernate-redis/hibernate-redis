@@ -1,9 +1,5 @@
 package org.hibernate.examples.mapping;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -13,6 +9,7 @@ import org.hibernate.examples.model.UpdatedTimestampEntity;
 import org.hibernate.examples.utils.HashTool;
 import org.hibernate.examples.utils.ToStringHelper;
 import org.joda.time.DateTime;
+import org.slf4j.Logger;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -28,15 +25,12 @@ import java.util.Date;
 @DynamicInsert
 @DynamicUpdate
 @SequenceGenerator(name = "employee_seq", sequenceName = "employee_seq")
-@Getter
-@Setter
-@Slf4j
 public class Employee extends AbstractHibernateEntity<Long> implements UpdatedTimestampEntity {
 
+    private static final Logger log = org.slf4j.LoggerFactory.getLogger(Employee.class);
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "employee_seq")
     @Column(name = "employeeId")
-    @Setter(AccessLevel.PROTECTED)
     private Long id;
 
     @Column(name = "empNo", nullable = false, length = 32)
@@ -87,4 +81,68 @@ public class Employee extends AbstractHibernateEntity<Long> implements UpdatedTi
     }
 
     private static final long serialVersionUID = 6878934074258579705L;
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public String getEmpNo() {
+        return this.empNo;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public String getEmail() {
+        return this.email;
+    }
+
+    public Date getBirthday() {
+        return this.birthday;
+    }
+
+    public byte[] getBinaryData() {
+        return this.binaryData;
+    }
+
+    public DateTime getHireDate() {
+        return this.hireDate;
+    }
+
+    public DateTime getUpdatedTimestamp() {
+        return this.updatedTimestamp;
+    }
+
+    public void setEmpNo(String empNo) {
+        this.empNo = empNo;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+
+    public void setBinaryData(byte[] binaryData) {
+        this.binaryData = binaryData;
+    }
+
+    public void setHireDate(DateTime hireDate) {
+        this.hireDate = hireDate;
+    }
+
+    public void setUpdatedTimestamp(DateTime updatedTimestamp) {
+        this.updatedTimestamp = updatedTimestamp;
+    }
+
+    protected void setId(Long id) {
+        this.id = id;
+    }
 }

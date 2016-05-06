@@ -1,8 +1,5 @@
 package org.hibernate.examples.mapping.compositeId.embeddable;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.examples.model.AbstractHibernateEntity;
 import org.hibernate.examples.utils.HashTool;
@@ -20,8 +17,6 @@ import javax.persistence.Entity;
  */
 @Entity
 @org.hibernate.annotations.Cache(region = "example", usage = CacheConcurrencyStrategy.READ_WRITE)
-@Getter
-@Setter
 public class EmbeddableIdCar extends AbstractHibernateEntity<EmbeddableCarIdentifier> {
 
     protected EmbeddableIdCar() {}
@@ -32,7 +27,6 @@ public class EmbeddableIdCar extends AbstractHibernateEntity<EmbeddableCarIdenti
 
     @EmbeddedId
     @Column(name = "carId")
-    @Setter(AccessLevel.PROTECTED)
     private EmbeddableCarIdentifier id;
 
     private String serialNo;
@@ -49,4 +43,20 @@ public class EmbeddableIdCar extends AbstractHibernateEntity<EmbeddableCarIdenti
     }
 
     private static final long serialVersionUID = 3596634438044379341L;
+
+    public EmbeddableCarIdentifier getId() {
+        return this.id;
+    }
+
+    public String getSerialNo() {
+        return this.serialNo;
+    }
+
+    public void setSerialNo(String serialNo) {
+        this.serialNo = serialNo;
+    }
+
+    protected void setId(EmbeddableCarIdentifier id) {
+        this.id = id;
+    }
 }

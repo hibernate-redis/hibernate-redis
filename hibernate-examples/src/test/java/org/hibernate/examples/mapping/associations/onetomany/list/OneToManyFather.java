@@ -1,8 +1,5 @@
 package org.hibernate.examples.mapping.associations.onetomany.list;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
@@ -22,13 +19,10 @@ import java.util.List;
  */
 @Entity
 @org.hibernate.annotations.Cache(region = "example", usage = CacheConcurrencyStrategy.READ_WRITE)
-@Getter
-@Setter
 public class OneToManyFather extends AbstractHibernateEntity<Long> {
 
     @Id
     @GeneratedValue
-    @Setter(AccessLevel.PROTECTED)
     private Long id;
 
     private String name;
@@ -52,4 +46,28 @@ public class OneToManyFather extends AbstractHibernateEntity<Long> {
     }
 
     private static final long serialVersionUID = 7615097053691800164L;
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public List<OneToManyChild> getChildren() {
+        return this.children;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setChildren(List<OneToManyChild> children) {
+        this.children = children;
+    }
+
+    protected void setId(Long id) {
+        this.id = id;
+    }
 }

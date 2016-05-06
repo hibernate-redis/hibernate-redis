@@ -1,8 +1,5 @@
 package org.hibernate.examples.mapping.inheritance.unionsubclass;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -25,8 +22,6 @@ import javax.persistence.*;
 @org.hibernate.annotations.Cache(region = "example", usage = CacheConcurrencyStrategy.READ_WRITE)
 @DynamicInsert
 @DynamicUpdate
-@Getter
-@Setter
 // 여러 테이블에 걸쳐 Identity를 유지하기 위해 Sequence 를 제작 (HSql, PostgreSql 에서만 지원)
 // @SequenceGenerator(name = "UnionSubclassBilling_Seq", sequenceName = "UnionSubclassBilling_Seq")
 public abstract class AbstractBilling extends AbstractHibernateEntity<String> {
@@ -34,7 +29,6 @@ public abstract class AbstractBilling extends AbstractHibernateEntity<String> {
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
-    @Setter(AccessLevel.PROTECTED)
     private String id;
 
     @Column(name = "owner", nullable = false)
@@ -52,4 +46,20 @@ public abstract class AbstractBilling extends AbstractHibernateEntity<String> {
     }
 
     private static final long serialVersionUID = 90233307681044105L;
+
+    public String getId() {
+        return this.id;
+    }
+
+    public String getOwner() {
+        return this.owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
+
+    protected void setId(String id) {
+        this.id = id;
+    }
 }

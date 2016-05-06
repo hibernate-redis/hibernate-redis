@@ -1,7 +1,5 @@
 package org.hibernate.examples.model;
 
-import lombok.Getter;
-import lombok.Setter;
 import org.hibernate.annotations.Type;
 import org.hibernate.examples.utils.HashTool;
 import org.hibernate.examples.utils.ToStringHelper;
@@ -17,8 +15,6 @@ import javax.persistence.Embeddable;
  * @since 2013. 12. 3. 오후 9:10
  */
 @Embeddable
-@Getter
-@Setter
 public class DateTimeRange extends AbstractValueObject {
 
     private static final long ZeroMillis = 0L;
@@ -69,4 +65,20 @@ public class DateTimeRange extends AbstractValueObject {
     }
 
     private static final long serialVersionUID = -1025137254753678068L;
+
+    public DateTime getStartTime() {
+        return this.startTime;
+    }
+
+    public DateTime getEndTime() {
+        return this.endTime;
+    }
+
+    public void setStartTime(DateTime startTime) {
+        this.startTime = startTime;
+    }
+
+    public void setEndTime(DateTime endTime) {
+        this.endTime = endTime;
+    }
 }

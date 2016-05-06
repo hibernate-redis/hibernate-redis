@@ -1,8 +1,5 @@
 package org.hibernate.examples.mapping.associations.onetomany.set;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
 import org.hibernate.annotations.*;
 import org.hibernate.examples.model.AbstractHibernateEntity;
 import org.hibernate.examples.utils.HashTool;
@@ -23,8 +20,6 @@ import java.sql.Timestamp;
 @org.hibernate.annotations.Cache(region = "example", usage = CacheConcurrencyStrategy.READ_WRITE)
 @DynamicInsert
 @DynamicUpdate
-@Getter
-@Setter
 public class OneToManyBid extends AbstractHibernateEntity<Long> {
 
     protected OneToManyBid() {}
@@ -37,7 +32,6 @@ public class OneToManyBid extends AbstractHibernateEntity<Long> {
 
     @Id
     @GeneratedValue
-    @Setter(AccessLevel.PROTECTED)
     private Long id;
 
     @ManyToOne
@@ -62,4 +56,36 @@ public class OneToManyBid extends AbstractHibernateEntity<Long> {
     }
 
     private static final long serialVersionUID = 6305076394221526269L;
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public OneToManyBiddingItem getItem() {
+        return this.item;
+    }
+
+    public BigDecimal getAmount() {
+        return this.amount;
+    }
+
+    public Timestamp getTimestamp() {
+        return this.timestamp;
+    }
+
+    public void setItem(OneToManyBiddingItem item) {
+        this.item = item;
+    }
+
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
+    }
+
+    public void setTimestamp(Timestamp timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    protected void setId(Long id) {
+        this.id = id;
+    }
 }

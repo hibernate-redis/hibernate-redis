@@ -1,8 +1,5 @@
 package org.hibernate.test.domain;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.text.DateFormat;
@@ -19,8 +16,6 @@ import java.util.Map;
  * @since 13. 4. 6. 오전 12:54
  */
 @Entity
-@Getter
-@Setter
 public class HolidayCalendar implements Serializable {
 
 	private static final long serialVersionUID = 1863327691656323002L;
@@ -45,5 +40,21 @@ public class HolidayCalendar implements Serializable {
 			throw new RuntimeException(e);
 		}
 		return this;
+	}
+
+	public Long getId() {
+		return this.id;
+	}
+
+	public Map<Date, String> getHolidays() {
+		return this.holidays;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public void setHolidays(Map<Date, String> holidays) {
+		this.holidays = holidays;
 	}
 }

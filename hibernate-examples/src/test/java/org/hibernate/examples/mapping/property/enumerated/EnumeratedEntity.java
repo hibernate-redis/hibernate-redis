@@ -1,8 +1,5 @@
 package org.hibernate.examples.mapping.property.enumerated;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -22,13 +19,10 @@ import javax.persistence.*;
 @org.hibernate.annotations.Cache(region = "example", usage = CacheConcurrencyStrategy.READ_WRITE)
 @DynamicInsert
 @DynamicUpdate
-@Getter
-@Setter
 public class EnumeratedEntity extends AbstractHibernateEntity<Long> {
 
     @Id
     @GeneratedValue
-    @Setter(AccessLevel.PROTECTED)
     private Long id;
 
     // Enumerated 를 쓰면 Enum 값을 원하는 Ordinal 수형으로 DB에 저장하고, 반환받을 수 있다. 대부분 String 을 사용한다.
@@ -47,4 +41,28 @@ public class EnumeratedEntity extends AbstractHibernateEntity<Long> {
     }
 
     private static final long serialVersionUID = 4071809720463913052L;
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public OrdinalEnum getIntValue() {
+        return this.intValue;
+    }
+
+    public StringEnum getStringValue() {
+        return this.stringValue;
+    }
+
+    public void setIntValue(OrdinalEnum intValue) {
+        this.intValue = intValue;
+    }
+
+    public void setStringValue(StringEnum stringValue) {
+        this.stringValue = stringValue;
+    }
+
+    protected void setId(Long id) {
+        this.id = id;
+    }
 }

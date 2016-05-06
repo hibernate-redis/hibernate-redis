@@ -16,10 +16,11 @@
 
 package org.hibernate.cache.redis;
 
-import lombok.extern.slf4j.Slf4j;
 import org.hibernate.cache.CacheException;
 import org.hibernate.cache.redis.util.JedisTool;
 import org.hibernate.cfg.Settings;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Properties;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -30,27 +31,19 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @author sunghyouk.bae@gmail.com
  * @since 13. 4. 6. 오전 12:31
  */
-@Slf4j
 public class SingletonRedisRegionFactory extends AbstractRedisRegionFactory {
 
-    private static final AtomicInteger ReferenceCount = new AtomicInteger();
-
-    public SingletonRedisRegionFactory(Properties props) {
-        super(props);
-        log.info("create SingletonRedisRegionFactory instance.");
-    }
+    private static final AtomicInteger referenceCount = new AtomicInteger();
+    private static final Logger log = LoggerFactory.getLogger(SingletonRedisRegionFactory.class);
 
     @Override
     public synchronized void start(Settings settings, Properties properties) throws CacheException {
-        log.info("starting SingletonRedisRegionFactory...");
+        log.info("Starting SingletonRedisRegionFactory...");
 
         this.settings = settings;
         try {
-            if (redis == null) {
-                this.redis = JedisTool.createJedisClient(props);
-                manageExpiration(redis);
-            }
-            ReferenceCount.incrementAndGet();
+            initializeRegionFactory(settings, JedisTool.loadCacheProperties(properties));
+            referenceCount.incrementAndGet();
             log.info("Started SingletonRedisRegionFactory");
         } catch (Exception e) {
             throw new CacheException(e);
@@ -59,15 +52,14 @@ public class SingletonRedisRegionFactory extends AbstractRedisRegionFactory {
 
     @Override
     public synchronized void stop() {
-        log.debug("stopping SingletonRedisRegionFactory...");
+        log.debug("Stopping SingletonRedisRegionFactory...");
 
-        if (ReferenceCount.decrementAndGet() == 0) {
+        if (referenceCount.decrementAndGet() == 0) {
             try {
-                redis = null;
-                if (expirationThread != null)
-                    expirationThread.interrupt();
-                log.info("stopped SingletonRedisRegionFactory");
-            } catch (Exception ignored) { }
+                destroy();
+                log.info("Stopped SingletonRedisRegionFactory");
+            } catch (Exception ignored) {
+            }
         }
     }
 

@@ -1,8 +1,5 @@
 package org.hibernate.examples.mapping.associations.onetoone.unidirectionalOneToOne;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -25,14 +22,11 @@ import javax.persistence.Id;
 @org.hibernate.annotations.Cache(region = "example", usage = CacheConcurrencyStrategy.READ_WRITE)
 @DynamicInsert
 @DynamicUpdate
-@Getter
-@Setter
 public class Vehicle extends AbstractHibernateEntity<Long> {
 
     @Id
     @GeneratedValue
     @Column(name = "vehicleId")
-    @Setter(AccessLevel.PROTECTED)
     private Long id;
 
     private String brand;
@@ -49,4 +43,20 @@ public class Vehicle extends AbstractHibernateEntity<Long> {
     }
 
     private static final long serialVersionUID = -5118283969168355563L;
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public String getBrand() {
+        return this.brand;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+
+    protected void setId(Long id) {
+        this.id = id;
+    }
 }

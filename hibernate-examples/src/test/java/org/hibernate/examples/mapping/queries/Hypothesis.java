@@ -1,8 +1,5 @@
 package org.hibernate.examples.mapping.queries;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -23,8 +20,6 @@ import javax.persistence.Id;
 @org.hibernate.annotations.Cache(region = "example", usage = CacheConcurrencyStrategy.READ_WRITE)
 @DynamicInsert
 @DynamicUpdate
-@Getter
-@Setter
 public class Hypothesis extends AbstractHibernateEntity<String> {
 
     protected Hypothesis() {}
@@ -34,7 +29,6 @@ public class Hypothesis extends AbstractHibernateEntity<String> {
     }
 
     @Id
-    @Setter(AccessLevel.PROTECTED)
     private String id;
 
     private String description;
@@ -54,4 +48,28 @@ public class Hypothesis extends AbstractHibernateEntity<String> {
     }
 
     private static final long serialVersionUID = 6827597657248806590L;
+
+    public String getId() {
+        return this.id;
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
+
+    public Integer getPosition() {
+        return this.position;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setPosition(Integer position) {
+        this.position = position;
+    }
+
+    protected void setId(String id) {
+        this.id = id;
+    }
 }

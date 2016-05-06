@@ -1,10 +1,10 @@
 package org.hibernate.examples.jpa.config;
 
-import lombok.extern.slf4j.Slf4j;
 import org.hibernate.ConnectionReleaseMode;
 import org.hibernate.cfg.Environment;
 import org.hibernate.cfg.NamingStrategy;
 import org.hibernate.examples.utils.DataSources;
+import org.slf4j.Logger;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
@@ -30,8 +30,9 @@ import static org.springframework.util.StringUtils.arrayToCommaDelimitedString;
  */
 @Configuration
 @EnableTransactionManagement
-@Slf4j
 public abstract class AbstractJpaConfiguration {
+
+    private static final Logger log = org.slf4j.LoggerFactory.getLogger(AbstractJpaConfiguration.class);
 
     /**
      * JPA EntityManager가 사용할 Database 명

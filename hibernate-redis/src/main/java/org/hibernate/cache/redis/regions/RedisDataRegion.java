@@ -16,14 +16,14 @@
 
 package org.hibernate.cache.redis.regions;
 
-import lombok.Getter;
-import lombok.extern.slf4j.Slf4j;
 import org.hibernate.cache.CacheException;
 import org.hibernate.cache.redis.jedis.JedisClient;
 import org.hibernate.cache.redis.strategy.RedisAccessStrategyFactory;
+import org.hibernate.cache.redis.timestamper.JedisCacheTimestamper;
 import org.hibernate.cache.redis.util.JedisTool;
-import org.hibernate.cache.redis.util.Timestamper;
 import org.hibernate.cache.spi.Region;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Collections;
 import java.util.Map;
@@ -35,14 +35,13 @@ import java.util.Properties;
  * @author sunghyouk.bae@gmail.com
  * @since 13. 4. 5. 오후 8:48
  */
-@Slf4j
 public abstract class RedisDataRegion implements Region {
 
     private static final String CACHE_LOCK_TIMEOUT_PROPERTY = "io.redis.hibernate.cache_lock_timeout";
     private static final int DEFAULT_CACHE_LOCK_TIMEOUT = 60 * 1000; // 60 seconds
     private static final String EXPIRE_IN_SECONDS = "redis.expiryInSeconds";
+    private static final Logger log = LoggerFactory.getLogger(RedisDataRegion.class);
 
-    @Getter
     protected final RedisAccessStrategyFactory accessStrategyFactory;
 
     /**
@@ -53,32 +52,47 @@ public abstract class RedisDataRegion implements Region {
     /**
      * Redis client instance deal hibernate data region.
      */
-    @Getter
     protected final JedisClient redis;
 
-    @Getter
     private final int cacheLockTimeout; // milliseconds
 
-    @Getter
     private final int expireInSeconds;  // seconds
 
-    @Getter
     protected boolean regionDeleted = false;
+
+    private JedisCacheTimestamper timestamper;
 
     protected RedisDataRegion(RedisAccessStrategyFactory accessStrategyFactory,
                               JedisClient redis,
                               String regionName,
-                              Properties props) {
+                              Properties props,
+                              JedisCacheTimestamper timestamper) {
         this.accessStrategyFactory = accessStrategyFactory;
         this.redis = redis;
         this.name = regionName;
+        this.timestamper = timestamper;
 
         this.cacheLockTimeout =
                 Integer.decode(props.getProperty(CACHE_LOCK_TIMEOUT_PROPERTY,
                                                  String.valueOf(DEFAULT_CACHE_LOCK_TIMEOUT)));
 
-        int defaultExpires = Integer.decode(JedisTool.getProperty(EXPIRE_IN_SECONDS, "120"));
-        this.expireInSeconds = JedisTool.getExpireInSeconds(name, defaultExpires);
+        this.expireInSeconds = JedisTool.getExpireInSeconds(props, name);
+    }
+
+    public JedisClient getRedis() {
+        return this.redis;
+    }
+
+    public int getCacheLockTimeout() {
+        return this.cacheLockTimeout;
+    }
+
+    public int getExpireInSeconds() {
+        return this.expireInSeconds;
+    }
+
+    public boolean isRegionDeleted() {
+        return this.regionDeleted;
     }
 
     /**
@@ -169,11 +183,15 @@ public abstract class RedisDataRegion implements Region {
 
     @Override
     public long nextTimestamp() {
-        return Timestamper.next();
+        return timestamper.next();
     }
 
     @Override
     public int getTimeout() {
         return cacheLockTimeout;
+    }
+
+    public RedisAccessStrategyFactory getAccessStrategyFactory() {
+        return this.accessStrategyFactory;
     }
 }
