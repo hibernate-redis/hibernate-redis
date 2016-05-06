@@ -611,7 +611,7 @@ public class JedisClient {
         try {
             return callback.execute(jedis);
         } finally {
-            jedisPool.returnResource(jedis);
+            jedis.close();
         }
     }
 
@@ -629,7 +629,7 @@ public class JedisClient {
             callback.execute(tx);
             return tx.exec();
         } finally {
-            jedisPool.returnResource(jedis);
+            jedis.close();
         }
     }
 
@@ -647,7 +647,7 @@ public class JedisClient {
             // use #sync(), not #exec()
             pipeline.sync();
         } finally {
-            jedisPool.returnResource(jedis);
+            jedis.close();
         }
     }
 
