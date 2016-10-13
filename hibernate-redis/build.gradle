@@ -22,7 +22,7 @@ dependencies {
         exclude(module: 'jboss-logging')
     }
     compile group: 'org.hibernate', name: 'hibernate-entitymanager', version:hibernateVersion
-    compile group: 'redis.clients', name: 'jedis', version:'2.8.1'
+    compile group: 'redis.clients', name: 'jedis', version:'2.8.2'
     compile group: 'org.xerial.snappy', name: 'snappy-java', version:'1.1.2.1'
     compile group: 'de.ruedigermoeller', name: 'fst', version:'2.45'
     compile group: 'org.slf4j', name: 'slf4j-api', version:'1.7.7'
