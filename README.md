@@ -24,7 +24,7 @@ Add dependency
 <dependency>
     <groupId>com.github.hibernate-redis</groupId>
     <artifactId>hibernate-redis</artifactId>
-    <version>1.6.4</version>
+    <version>1.6.8</version>
 </dependency>
 ```
 
